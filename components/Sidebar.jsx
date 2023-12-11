@@ -1,5 +1,3 @@
-import React from "react";
-
 // TODO: Properly implement these props
 const SidebarItem = ({ text, link }) => {
   return (
@@ -15,7 +13,7 @@ const Sidebar = ({ className }) => {
       // the className prop is used to add additional classes to the component
       // like adding responsiveness in parent component RootLayout
       className={
-        "w-1/6 bg-foreground flex flex-col justify-center gap-10 items-center text-text" +
+        "sm:w-1/6 py-5 bg-foreground flex flex-col justify-center gap-10 items-center text-text" +
         " " +
         className
       }
