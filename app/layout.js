@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className + " bg-foreground"}>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
           <Navbar />
-          <div className="flex">
+          <div className="flex flex-grow">
             <Sidebar />
             {children}
           </div>
