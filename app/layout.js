@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 
 // TODO: Discuss if we want to use a different font
 const inter = Inter({ subsets: ["latin"] });
@@ -14,10 +15,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className + " bg-background"}>
         <div className="flex flex-col">
           <Navbar />
-          {children}
+          <div className="flex">
+            <Sidebar />
+            {children}
+          </div>
         </div>
       </body>
     </html>
