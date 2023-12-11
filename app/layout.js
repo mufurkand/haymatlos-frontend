@@ -19,7 +19,13 @@ export default function RootLayout({ children }) {
         <div className="flex flex-col h-screen">
           <Navbar />
           <div className="flex flex-grow">
-            <Sidebar />
+            {/*
+            somewhat implemented mobile responsiveness with these.
+            it's really unnecessary tho, might move them in the component
+            file itself. they are here just for clarity. this just removes
+            the sidebar on screens smaller than 640px.
+            */}
+            <Sidebar className="sm:flex hidden" />
             {children}
           </div>
         </div>
