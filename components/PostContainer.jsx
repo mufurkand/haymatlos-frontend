@@ -50,7 +50,7 @@ const PostContainer = () => {
         So we have to calculate the height of the page and subtract the height
         of both the Navbar and Categorybar.
       */}
-      <div className="flex max-h-[calc(100vh-3.5rem-3.5rem-2.5rem-1.25rem)] w-full flex-col gap-5 overflow-auto bg-background">
+      <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
         <Post />
         <Post />
         <Post />

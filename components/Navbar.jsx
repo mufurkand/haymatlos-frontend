@@ -9,7 +9,7 @@ const Navbar = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   return (
-    <div className="flex flex-col">
+    <div className="fixed left-0 top-0 flex w-full flex-col">
       <div className="flex h-14 w-auto items-center justify-around bg-foreground text-text">
         <h1 className="bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
           haymatlos
