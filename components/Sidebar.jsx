@@ -1,7 +1,7 @@
 // TODO: Properly implement these props
 const SidebarItem = ({ text, link }) => {
   return (
-    <button className="p-2 px-5 rounded-md hover:bg-background transition-colors text-text hover:text-accentRed">
+    <button className="rounded-md p-2 px-5 text-text transition-colors hover:bg-background hover:text-accentRed">
       {text}
     </button>
   );
@@ -13,7 +13,7 @@ const Sidebar = ({ className }) => {
       // the className prop is used to add additional classes to the component
       // like adding responsiveness in parent component RootLayout
       className={
-        "sm:w-1/6 py-5 bg-foreground flex flex-col justify-center gap-10 items-center text-text" +
+        "flex flex-col items-center justify-center gap-10 bg-foreground py-5 text-text sm:w-1/6" +
         " " +
         className
       }
@@ -21,7 +21,7 @@ const Sidebar = ({ className }) => {
       <SidebarItem text="Akış" link="/" />
       <SidebarItem text="Paylaş" link="/" />
       <SidebarItem text="Daha Fazla" link="/" />
-      <hr className="w-24 h-1 border-0 rounded md:my-10 bg-accentRed" />
+      <hr className="h-1 w-24 rounded border-0 bg-accentRed md:my-10" />
       <SidebarItem text="Popüler" link="/" />
       <SidebarItem text="Keşfet" link="/" />
     </div>

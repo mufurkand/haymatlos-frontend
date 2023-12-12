@@ -3,8 +3,8 @@ const Searchbar = () => {
     <div className="flex items-center justify-center">
       <input
         type="text"
-        placeholder="Search..."
-        className="px-3 py-1 border-2 border-accentRed rounded-full focus:outline-none focus:border-accentBlue bg-background placeholder:text-center"
+        placeholder="Ara..."
+        className="rounded-full border-2 border-accentRed bg-background px-3 py-1 placeholder:text-center focus:border-accentBlue focus:outline-none"
       />
     </div>
   );

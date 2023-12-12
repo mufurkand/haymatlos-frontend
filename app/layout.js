@@ -16,8 +16,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className + " bg-foreground"}>
-        <div className="flex flex-col h-screen">
-          <Navbar />
+        <div className="flex h-screen flex-col">
+          <Navbar className="" />
           <div className="flex flex-grow">
             {/*
             somewhat implemented mobile responsiveness with this style.
@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
             navbar without this specific styling. this style just removes
             the sidebar on screens smaller than 640px.
             */}
-            <Sidebar className="sm:flex hidden" />
+            <Sidebar className="hidden sm:flex" />
             {children}
           </div>
         </div>
