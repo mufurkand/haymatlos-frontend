@@ -32,7 +32,8 @@ const Navbar = () => {
         <div className="flex sm:hidden">
           <button
             className="bg-gradient-to-r from-amber-500 to-lime-500 bg-clip-text text-2xl font-extrabold text-transparent"
-            onClick={() => setToggleDropdown((prev) => !prev)}
+            // state queue so we can safely toggle the state
+            onClick={() => setToggleDropdown((td) => !td)}
           >
             [O]
           </button>

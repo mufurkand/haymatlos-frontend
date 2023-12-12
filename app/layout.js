@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className + " bg-foreground"}>
         <div className="flex h-screen flex-col">
-          <Navbar className="" />
+          <Navbar />
           <div className="flex flex-grow">
             {/*
             somewhat implemented mobile responsiveness with this style.
