@@ -16,9 +16,8 @@ const Category = ({ name }) => {
         "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
         " " +
         (active
-          ? // ? "border-foreground bg-accentBlue hover:border-accentBlue hover:bg-foreground"
-            "border-foreground bg-gradient-to-br from-accentBlue to-blue-500 hover:border-accentBlue hover:bg-foreground"
-          : "border-accentBlue bg-foreground hover:border-foreground hover:bg-accentBlue") +
+          ? "border-foreground bg-accentRed"
+          : "border-accentRed bg-foreground") +
         " " +
         (active ? "rounded-full" : "rounded-lg")
       }

@@ -7,9 +7,9 @@ import Sidebar from "@/components/Sidebar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Haymatlos Forums",
+  title: "Haymatlos Forum",
   // TODO: Expand upon this description
-  description: "Haymatlos Forums",
+  description: "Haymatlos Forum",
 };
 
 export default function RootLayout({ children }) {
