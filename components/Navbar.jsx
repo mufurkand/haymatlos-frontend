@@ -18,12 +18,6 @@ const Navbar = () => {
         </h1>
 
         {/* Desktop Navigation */}
-        {/* TODO: This gap might be a problem in the future */}
-        {/* <div className="hidden items-center justify-around gap-20 sm:flex"> */}
-        {/* <p>Kültür/Sanat</p>
-          <p>Bilim</p>
-          <p>Felsefe</p>
-          <p>Siyaset</p> */}
         <div className="hidden sm:flex sm:flex-auto">
           <Searchbar className="sm:flex-auto sm:basis-2/4" />
         </div>
