@@ -12,20 +12,25 @@ const Navbar = () => {
 
   return (
     <div className="fixed left-0 top-0 flex w-full flex-col">
-      <div className="flex h-14 w-auto items-center justify-between bg-foreground px-14 text-text">
-        <h1 className="bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
+      <div className="flex h-14 w-auto items-center justify-between gap-5 bg-foreground px-5 text-text sm:px-14">
+        <h1 className="bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent sm:basis-1/4">
           haymatlos
         </h1>
 
         {/* Desktop Navigation */}
         {/* TODO: This gap might be a problem in the future */}
-        <div className="hidden items-center justify-around gap-20 sm:flex">
-          {/* <p>Kültür/Sanat</p>
+        {/* <div className="hidden items-center justify-around gap-20 sm:flex"> */}
+        {/* <p>Kültür/Sanat</p>
           <p>Bilim</p>
           <p>Felsefe</p>
           <p>Siyaset</p> */}
-          <Searchbar />
+        <div className="hidden sm:flex sm:flex-auto">
+          <Searchbar className="sm:flex-auto sm:basis-2/4" />
         </div>
+        <div className="hidden justify-end sm:flex sm:basis-1/4">
+          PLACEHOLDER
+        </div>
+        {/* </div> */}
 
         {/* Mobile Navigation */}
         {/* FIXME: Can't really hide dropdown in Sidebar component. Clicking
@@ -41,7 +46,16 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      {toggleDropdown && <Sidebar />}
+      <div
+        className={
+          (toggleDropdown ? "flex" : "hidden") +
+          " " +
+          "flex-col rounded-b-md bg-foreground p-5"
+        }
+      >
+        <Sidebar />
+        <Searchbar />
+      </div>
     </div>
   );
 };
