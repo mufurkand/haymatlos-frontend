@@ -41,14 +41,6 @@ const PostContainer = () => {
         <Category name="Siyaset" />
       </div>
       {/* Posts */}
-      {/*
-        AHHHHHHHHHHHHHH I HATE CSS.
-        Adding posts dynamically will eventually cause the page to overflow.
-        So we solve this by adding a max-height and overflow-auto to the parent
-        container but the max-h class does not work with dynamic values.
-        So we have to calculate the height of the page and subtract the height
-        of both the Navbar and Categorybar.
-      */}
       <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
         <Post />
         <Post />
