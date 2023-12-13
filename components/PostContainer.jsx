@@ -16,9 +16,8 @@ const Category = ({ name }) => {
         "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
         " " +
         (active
-          ? // ? "border-foreground bg-accentBlue hover:border-accentBlue hover:bg-foreground"
-            "border-foreground bg-gradient-to-br from-accentBlue to-blue-500 hover:border-accentBlue hover:bg-foreground"
-          : "border-accentBlue bg-foreground hover:border-foreground hover:bg-accentBlue") +
+          ? "border-foreground bg-accentRed"
+          : "border-accentRed bg-foreground") +
         " " +
         (active ? "rounded-full" : "rounded-lg")
       }
@@ -42,15 +41,7 @@ const PostContainer = () => {
         <Category name="Siyaset" />
       </div>
       {/* Posts */}
-      {/*
-        AHHHHHHHHHHHHHH I HATE CSS.
-        Adding posts dynamically will eventually cause the page to overflow.
-        So we solve this by adding a max-height and overflow-auto to the parent
-        container but the max-h class does not work with dynamic values.
-        So we have to calculate the height of the page and subtract the height
-        of both the Navbar and Categorybar.
-      */}
-      <div className="flex max-h-[calc(100vh-3.5rem-3.5rem-2.5rem-1.25rem)] w-full flex-col gap-5 overflow-auto bg-background">
+      <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
         <Post />
         <Post />
         <Post />

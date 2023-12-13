@@ -9,8 +9,8 @@ const Navbar = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   return (
-    <div className="flex flex-col">
-      <div className="flex h-14 w-auto items-center justify-around bg-foreground text-text">
+    <div className="fixed left-0 top-0 flex w-full flex-col">
+      <div className="flex h-14 w-auto items-center justify-between bg-foreground px-14 text-text">
         <h1 className="bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
           haymatlos
         </h1>
@@ -18,10 +18,10 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         {/* TODO: This gap might be a problem in the future */}
         <div className="hidden items-center justify-around gap-20 sm:flex">
-          <p>Kültür/Sanat</p>
+          {/* <p>Kültür/Sanat</p>
           <p>Bilim</p>
           <p>Felsefe</p>
-          <p>Siyaset</p>
+          <p>Siyaset</p> */}
           <Searchbar />
         </div>
 

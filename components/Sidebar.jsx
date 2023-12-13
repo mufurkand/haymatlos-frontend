@@ -13,7 +13,7 @@ const Sidebar = ({ className }) => {
       // the className prop is used to add additional classes to the component
       // like adding responsiveness in parent component RootLayout
       className={
-        "flex flex-col items-center justify-center gap-10 bg-foreground py-5 text-text sm:w-1/6" +
+        "flex flex-col items-center justify-center gap-10 bg-foreground py-5 text-text sm:h-full sm:w-60" +
         " " +
         className
       }
