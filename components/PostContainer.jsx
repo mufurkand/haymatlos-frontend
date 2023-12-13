@@ -10,7 +10,6 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
   const isActive = activeCategory === category.id;
 
   return (
-    // TODO: implement a proper active state in the parent container
     <button
       className={
         "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
@@ -21,7 +20,6 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
         " " +
         (isActive ? "rounded-full" : "rounded-lg")
       }
-      // state queue so we can safely toggle the active state
       onClick={() => setActiveCategory(category.id)}
     >
       {category.name}

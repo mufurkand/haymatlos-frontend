@@ -4,6 +4,8 @@ import { useState } from "react";
 import Searchbar from "./Searchbar";
 // for mobile pop-up menu
 import Sidebar from "./Sidebar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -31,11 +33,11 @@ const Navbar = () => {
         Maybe create a seperate list? */}
         <div className="flex sm:hidden">
           <button
-            className="bg-gradient-to-r from-amber-500 to-lime-500 bg-clip-text text-2xl font-extrabold text-transparent"
+            className="text-xl text-accentRed"
             // state queue so we can safely toggle the state
             onClick={() => setToggleDropdown((td) => !td)}
           >
-            [O]
+            <FontAwesomeIcon icon={faBars} />
           </button>
         </div>
       </div>
