@@ -6,8 +6,8 @@ const Post = () => {
   return <div className="h-48 w-full flex-none rounded-md bg-foreground"></div>;
 };
 
-const Category = ({ name }) => {
-  const [active, setActive] = useState(false);
+const Category = ({ category, activeCategory, setActiveCategory }) => {
+  const isActive = activeCategory === category.id;
 
   return (
     // TODO: implement a proper active state in the parent container
@@ -15,30 +15,42 @@ const Category = ({ name }) => {
       className={
         "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
         " " +
-        (active
+        (isActive
           ? "border-foreground bg-accentRed"
           : "border-accentRed bg-foreground") +
         " " +
-        (active ? "rounded-full" : "rounded-lg")
+        (isActive ? "rounded-full" : "rounded-lg")
       }
       // state queue so we can safely toggle the active state
-      onClick={() => setActive((a) => !a)}
+      onClick={() => setActiveCategory(category.id)}
     >
-      {name}
+      {category.name}
     </button>
   );
 };
 
 const PostContainer = () => {
+  const categories = [
+    { name: "Anasayfa", id: "home" },
+    { name: "Kültür/Sanat", id: "culture" },
+    { name: "Bilim", id: "science" },
+    { name: "Felsefe", id: "philosophy" },
+    { name: "Siyaset", id: "politics" },
+  ];
+  const [activeCategory, setActiveCategory] = useState(categories[0].id);
+
   return (
     <div className="flex h-full w-full flex-col items-center p-5">
       {/* Categories */}
       <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:rounded-tl-md">
-        <Category name="Anasayfa" />
-        <Category name="Kültür/Sanat" />
-        <Category name="Bilim" />
-        <Category name="Felsefe" />
-        <Category name="Siyaset" />
+        {categories.map((category) => (
+          <Category
+            key={category.id}
+            category={category}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        ))}
       </div>
       {/* Posts */}
       <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
