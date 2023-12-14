@@ -7,6 +7,7 @@ import {
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import Link from "next/link";
 
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -19,21 +20,23 @@ const UserSection = () => {
         (toggleDropdown ? "rounded-t-md" : "rounded-md")
       }
     >
-      <div
+      <button
         className="flex items-center justify-center gap-3"
         onClick={() => setToggleDropdown((td) => !td)}
       >
         <FontAwesomeIcon icon={faUser} />
-        <div>Guest</div>
+        <div>Misafir</div>
         <FontAwesomeIcon icon={toggleDropdown ? faAngleUp : faAngleDown} />
-      </div>
+      </button>
       {toggleDropdown && (
         <div className="absolute left-0 top-10 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2">
-          <p>Sign In</p>
-          <p>
-            Log In
-            {/* TODO: add a searchbar for mobile */}
-          </p>
+          <Link href="/sign-up" onClick={() => setToggleDropdown((td) => !td)}>
+            Kayıt Ol
+          </Link>
+          <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
+            Giriş Yap
+          </Link>
+          {/* TODO: add a searchbar for mobile */}
         </div>
       )}
     </div>

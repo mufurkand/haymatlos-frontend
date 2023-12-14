@@ -158,7 +158,7 @@ const PostContainer = () => {
   return (
     <div className="flex flex-col items-center p-5">
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center justify-center gap-5 overflow-auto bg-background">
+      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
         {categories.map((category) => (
           <Category
             key={category.id}
