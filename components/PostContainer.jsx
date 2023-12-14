@@ -10,7 +10,7 @@ import {
 
 const Post = ({ post }) => {
   return (
-    <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+    <div className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
       <div className="flex justify-between text-white">{post.title}</div>
       <div className="text-text">{post.content}</div>
       <div className="flex justify-between">
@@ -156,9 +156,9 @@ const PostContainer = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
 
   return (
-    <div className="flex h-full w-full flex-col items-center p-5">
+    <div className="flex flex-col items-center p-5">
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:rounded-tl-md">
+      <div className="mb-5 flex h-14 w-full items-center justify-center gap-5 overflow-auto bg-background">
         {categories.map((category) => (
           <Category
             key={category.id}
@@ -169,7 +169,7 @@ const PostContainer = () => {
         ))}
       </div>
       {/* Posts */}
-      <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
+      <div className="flex flex-col gap-5 overflow-auto bg-background">
         {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}

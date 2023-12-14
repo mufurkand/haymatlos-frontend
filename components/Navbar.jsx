@@ -6,10 +6,9 @@ import Searchbar from "./Searchbar";
 import Sidebar from "./Sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import UserSection from "./UserSection";
 
 const Navbar = () => {
-  const [toggleDropdown, setToggleDropdown] = useState(false);
-
   return (
     <div className="fixed left-0 top-0 flex w-full flex-col">
       <div className="flex h-14 w-auto items-center justify-between gap-5 bg-foreground px-5 text-text sm:px-14">
@@ -21,34 +20,9 @@ const Navbar = () => {
         <div className="hidden sm:flex sm:flex-auto">
           <Searchbar className="sm:flex-auto sm:basis-2/4" />
         </div>
-        <div className="hidden justify-end sm:flex sm:basis-1/4">
-          PLACEHOLDER
+        <div className="relative flex justify-end sm:basis-1/4">
+          <UserSection />
         </div>
-        {/* </div> */}
-
-        {/* Mobile Navigation */}
-        {/* FIXME: Can't really hide dropdown in Sidebar component. Clicking
-        a link won't affect toggleDropdown variable and trigger a re-render.
-        Maybe create a seperate list? */}
-        <div className="flex sm:hidden">
-          <button
-            className="text-xl text-accentRed"
-            // state queue so we can safely toggle the state
-            onClick={() => setToggleDropdown((td) => !td)}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </button>
-        </div>
-      </div>
-      <div
-        className={
-          (toggleDropdown ? "flex" : "hidden") +
-          " " +
-          "flex-col rounded-b-md bg-foreground p-5"
-        }
-      >
-        <Sidebar />
-        <Searchbar />
       </div>
     </div>
   );
