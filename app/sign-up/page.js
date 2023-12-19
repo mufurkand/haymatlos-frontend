@@ -8,6 +8,9 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const page = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
+  // TODO: email
+  // TODO: password confirmation
+
   return (
     <div className="flex w-full justify-center bg-background">
       <form className="flex flex-col gap-5 p-5 text-text sm:w-1/4">

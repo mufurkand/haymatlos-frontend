@@ -36,6 +36,7 @@ const UserSection = () => {
           <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
             Giriş Yap
           </Link>
+          {/* TODO: collapse the bar when another part of the site is clicked */}
           {/* TODO: add a searchbar for mobile */}
         </div>
       )}
