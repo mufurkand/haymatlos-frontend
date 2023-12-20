@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 
 import posts from "@/tests/posts";
+import Searchbar from "@/components/Searchbar";
 
 export const Post = ({ post, isLink = true }) => {
   const postBody = (
@@ -91,6 +92,11 @@ const PostContainer = () => {
 
   return (
     <div className="flex flex-col items-center p-5">
+      {/* Searchbar for Mobile */}
+      {/* TODO: add a search button to navbar and dynamically show searchbar */}
+      <div className="mb-5 flex w-full sm:mb-0 sm:hidden">
+        <Searchbar />
+      </div>
       {/* Categories */}
       <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
         {categories.map((category) => (
