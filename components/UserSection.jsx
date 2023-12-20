@@ -6,14 +6,31 @@ import {
   faAngleUp,
   faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // close the dropdown menu when clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setToggleDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    // clean the event listener when component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div
+      ref={dropdownRef}
       className={
         "relative bg-accentRed p-2 text-text" +
         " " +
@@ -36,7 +53,6 @@ const UserSection = () => {
           <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
             Giriş Yap
           </Link>
-          {/* TODO: collapse the bar when another part of the site is clicked */}
           {/* TODO: add a searchbar for mobile */}
         </div>
       )}
