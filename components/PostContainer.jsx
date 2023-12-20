@@ -11,12 +11,9 @@ import Link from "next/link";
 
 import posts from "@/tests/posts";
 
-export const Post = ({ post }) => {
-  return (
-    <Link
-      href={"/post/" + post.id}
-      className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
-    >
+export const Post = ({ post, isLink = true }) => {
+  const postBody = (
+    <>
       <div className="flex justify-between text-white">{post.title}</div>
       <div className="text-text">{post.content}</div>
       <div className="flex justify-between">
@@ -39,7 +36,24 @@ export const Post = ({ post }) => {
           <p>{post.user}</p>
         </div>
       </div>
-    </Link>
+    </>
+  );
+
+  return (
+    <>
+      {isLink ? (
+        <Link
+          href={"/post/" + post.id}
+          className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+        >
+          {postBody}
+        </Link>
+      ) : (
+        <div className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+          {postBody}
+        </div>
+      )}
+    </>
   );
 };
 
