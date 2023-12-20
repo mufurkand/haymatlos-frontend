@@ -1,9 +1,9 @@
+"use client";
+
+import LogInForm from "@/components/LogInForm";
+
 const page = () => {
-  return (
-    <div className="bg-background text-center text-4xl font-extrabold">
-      GİRİŞ
-    </div>
-  );
+  return <LogInForm />;
 };
 
 export default page;

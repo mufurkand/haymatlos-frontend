@@ -1,12 +1,4 @@
-"use client";
-
 import posts from "@/tests/posts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faMessage,
-} from "@fortawesome/free-solid-svg-icons";
 import { Post } from "@/components/PostContainer";
 
 const page = ({ params }) => {

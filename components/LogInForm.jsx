@@ -4,7 +4,7 @@ import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const SignUpForm = () => {
+const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
   return (
@@ -12,9 +12,6 @@ const SignUpForm = () => {
       <form className="flex flex-col gap-5 p-5 text-text sm:w-1/4">
         <label>Kullanıcı Adı</label>
         <Input placeholder="Kullanıcı Adı" type="text" name="nickname" />
-        <label>E-posta</label>
-        <Input placeholder="E-posta" type="email" name="email" />
-        {/* password input w/ reveal button */}
         <label>Şifre</label>
         <div className="relative">
           <Input
@@ -39,7 +36,7 @@ const SignUpForm = () => {
             className="rounded-md bg-foreground p-2 hover:bg-accentRed"
             type="submit"
           >
-            Kaydol
+            Giriş Yap
           </button>
         </div>
       </form>
@@ -47,4 +44,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default LogInForm;
