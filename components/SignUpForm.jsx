@@ -7,9 +7,26 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const SignUpForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const nickname = event.target.nickname.value;
+    const password = event.target.password.value;
+    const response = await fetch(
+      `https://192.168.175.227:7090/users?nickname=${nickname}&password=${password}`,
+      {
+        method: "POST",
+      },
+    );
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <div className="flex w-full justify-center bg-background">
-      <form className="flex flex-col gap-5 p-5 text-text sm:w-1/4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5 p-5 text-text sm:w-1/4"
+      >
         <label>Kullanıcı Adı</label>
         <Input placeholder="Kullanıcı Adı" type="text" name="nickname" />
         <label>E-posta</label>

@@ -13,7 +13,7 @@ const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const dropdownRef = useRef(null);
 
-  // close the dropdown menu when clicked outside
+  // close the dropdown menu when clicked outside or on scroll
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -21,10 +21,16 @@ const UserSection = () => {
       }
     };
 
+    const handleScroll = () => {
+      setToggleDropdown(false);
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("scroll", handleScroll);
     // clean the event listener when component unmounts
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("scroll", handleScroll);
     };
   }, []);
 

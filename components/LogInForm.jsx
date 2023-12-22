@@ -7,9 +7,23 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const nickname = event.target.nickname.value;
+    const password = event.target.password.value;
+    const response = await fetch(
+      `https://192.168.175.227:7090/users/login?nickname=${nickname}&password=${password}`,
+    );
+    const data = await response.text();
+    console.log(data);
+  };
+
   return (
     <div className="flex w-full justify-center bg-background">
-      <form className="flex flex-col gap-5 p-5 text-text sm:w-1/4">
+      <form
+        className="flex flex-col gap-5 p-5 text-text sm:w-1/4"
+        onSubmit={handleSubmit}
+      >
         <label>Kullanıcı Adı</label>
         <Input placeholder="Kullanıcı Adı" type="text" name="nickname" />
         <label>Şifre</label>

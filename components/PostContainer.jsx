@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
@@ -9,10 +9,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 
-import posts from "@/tests/posts";
+// import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
 
 export const Post = ({ post, isLink = true }) => {
+  const date = new Date(post.regDate);
   const postBody = (
     <>
       <div className="flex justify-between text-white">{post.title}</div>
@@ -21,20 +22,21 @@ export const Post = ({ post, isLink = true }) => {
         <div className="flex justify-between gap-2">
           <div className="flex items-center justify-between gap-1 text-gray-500">
             <FontAwesomeIcon icon={faThumbsUp} />
-            <p>{post.likes}</p>
+            <p>{post.like}</p>
           </div>
           <div className="flex items-center justify-between gap-1 text-gray-500">
             <FontAwesomeIcon icon={faThumbsDown} />
-            <p>{post.dislikes}</p>
+            <p>{post.dislike}</p>
           </div>
           <div className="flex items-center justify-between gap-1 text-gray-500">
             <FontAwesomeIcon icon={faMessage} />
-            <p>{post.likes}</p>
+            <p>FIX</p>
           </div>
         </div>
         <div className="flex gap-2 text-gray-500">
-          <p>{post.date}</p>
-          <p>{post.user}</p>
+          <p>{date.toLocaleDateString("en-US")}</p>
+          {/* TODO: need a backend endpoint to fetch username from id */}
+          <p>{/* {post.fkeyUuidUser} */}FIX</p>
         </div>
       </div>
     </>
@@ -43,14 +45,15 @@ export const Post = ({ post, isLink = true }) => {
   return (
     <>
       {isLink ? (
+        // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
-          className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+          className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
         >
           {postBody}
         </Link>
       ) : (
-        <div className="flex flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+        <div className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
           {postBody}
         </div>
       )}
@@ -89,6 +92,18 @@ const PostContainer = () => {
   ];
 
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [posts, setPosts] = useState([]);
+
+  // component mount
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch("https://192.168.175.227:7090/posts");
+      const data = await response.json();
+      setPosts(data.data["$values"]);
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <div className="flex flex-col items-center p-5">
@@ -111,7 +126,7 @@ const PostContainer = () => {
       {/* Posts */}
       <div className="flex flex-col gap-5 overflow-auto bg-background">
         {posts.map((post) => (
-          <Post key={post.id} post={post} />
+          <Post key={post.pkeyUuidPost} post={post} />
         ))}
       </div>
     </div>
