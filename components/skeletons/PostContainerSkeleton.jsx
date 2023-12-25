@@ -11,12 +11,12 @@ const PostContainerSkeleton = () => {
     <div className="flex flex-col items-center bg-background p-5">
       <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto p-2 sm:justify-center">
         {Array.from({ length: 5 }, (_, index) => (
-          <Category />
+          <Category key={index} />
         ))}
       </div>
       <div className="flex w-full flex-col gap-5">
         {Array.from({ length: 5 }, (_, index) => (
-          <Post />
+          <Post key={index} />
         ))}
       </div>
     </div>

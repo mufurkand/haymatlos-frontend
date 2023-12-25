@@ -11,6 +11,7 @@ import Link from "next/link";
 
 // import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
+import PostContainerSkeleton from "./skeletons/PostContainerSkeleton";
 
 export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
@@ -82,7 +83,7 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
   );
 };
 
-const PostContainer = ({ posts }) => {
+const PostContainer = () => {
   const categories = [
     { name: "Anasayfa", id: "home" },
     { name: "Kültür/Sanat", id: "culture" },
@@ -92,6 +93,30 @@ const PostContainer = ({ posts }) => {
   ];
 
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // component mount
+  /* useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch("https://192.168.175.227:7090/posts");
+      const data = await response.json();
+      setPosts(data.data["$values"]);
+    };
+
+    fetchPosts();
+  }, []); */
+
+  useEffect(() => {
+    fetch("https://192.168.175.227:7090/posts")
+      .then((res) => res.json())
+      .then((data) => {
+        setPosts(data.data["$values"]);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) return <PostContainerSkeleton />;
 
   return (
     <div className="flex flex-col items-center p-5">

@@ -14,7 +14,7 @@ const LogInForm = () => {
     const response = await fetch(
       `https://192.168.175.227:7090/users/login?nickname=${nickname}&password=${password}`,
     );
-    const data = await response.text();
+    const data = await response.json();
     console.log(data);
   };
 
