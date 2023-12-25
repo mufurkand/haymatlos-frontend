@@ -82,7 +82,7 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
   );
 };
 
-const PostContainer = () => {
+const PostContainer = ({ posts }) => {
   const categories = [
     { name: "Anasayfa", id: "home" },
     { name: "Kültür/Sanat", id: "culture" },
@@ -92,18 +92,6 @@ const PostContainer = () => {
   ];
 
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const [posts, setPosts] = useState([]);
-
-  // component mount
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("https://192.168.175.227:7090/posts");
-      const data = await response.json();
-      setPosts(data.data["$values"]);
-    };
-
-    fetchPosts();
-  }, []);
 
   return (
     <div className="flex flex-col items-center p-5">
