@@ -18,8 +18,10 @@ export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
   const postBody = (
     <>
-      <div className="flex justify-between text-white">{post.title}</div>
-      <div className="dark:text-darkText text-text">{post.content}</div>
+      <div className="flex justify-between text-white dark:text-black">
+        {post.title}
+      </div>
+      <div className="text-text dark:text-darkText">{post.content}</div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-2">
           <div className="flex items-center justify-between gap-1 text-gray-500">
@@ -50,12 +52,12 @@ export const Post = ({ post, isLink = true }) => {
         // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
-          className="dark:bg-darkForeground flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+          className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
         >
           {postBody}
         </Link>
       ) : (
-        <div className="dark:bg-darkForeground flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground">
           {postBody}
         </div>
       )}
@@ -69,14 +71,12 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
   return (
     <button
       className={
-        "dark:text-darkText flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
+        "flex items-center rounded-lg border-2 border-solid p-2 text-center text-text transition-all dark:text-darkText" +
         " " +
         // TODO: may break on dark mode
         (isActive
           ? "border-foreground bg-accentRed"
-          : "border-accentRed bg-foreground") +
-        " " +
-        (isActive ? "rounded-full" : "rounded-lg")
+          : "border-accentRed bg-foreground")
       }
       onClick={() => setActiveCategory(category.id)}
     >
@@ -101,7 +101,7 @@ const PostContainer = () => {
 
   // on mount
   useEffect(() => {
-    fetch("https://192.168.175.227:7090/posts")
+    fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data.data["$values"]);
@@ -121,7 +121,7 @@ const PostContainer = () => {
         <Searchbar />
       </div>
       {/* Categories */}
-      <div className="dark:bg-darkBackground mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
+      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground sm:justify-center">
         {categories.map((category) => (
           <Category
             key={category.id}
@@ -132,7 +132,7 @@ const PostContainer = () => {
         ))}
       </div>
       {/* Posts */}
-      <div className="dark:bg-darkBackground flex w-full flex-col gap-5 overflow-auto bg-background">
+      <div className="flex w-full flex-col gap-5 overflow-auto bg-background dark:bg-darkBackground">
         {posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}

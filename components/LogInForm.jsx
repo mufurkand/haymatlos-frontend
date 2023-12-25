@@ -12,16 +12,17 @@ const LogInForm = () => {
     const nickname = event.target.nickname.value;
     const password = event.target.password.value;
     const response = await fetch(
-      `https://192.168.175.227:7090/users/login?nickname=${nickname}&password=${password}`,
+      process.env.NEXT_PUBLIC_BACKEND_URL +
+        `/users/login?nickname=${nickname}&password=${password}`,
     );
     const data = await response.json();
     console.log(data);
   };
 
   return (
-    <div className="dark:bg-darkBackground flex w-full justify-center bg-background">
+    <div className="flex w-full justify-center bg-background dark:bg-darkBackground">
       <form
-        className="dark:text-darkText flex flex-col gap-5 p-5 text-text sm:w-1/4"
+        className="flex flex-col gap-5 p-5 text-text dark:text-darkText sm:w-1/4"
         onSubmit={handleSubmit}
       >
         <label>Kullanıcı Adı</label>
@@ -47,7 +48,7 @@ const LogInForm = () => {
         </div>
         <div className="flex justify-center">
           <button
-            className="dark:bg-darkForeground rounded-md bg-foreground p-2 hover:bg-accentRed"
+            className="rounded-md bg-foreground p-2 hover:bg-accentRed dark:bg-darkForeground"
             type="submit"
           >
             Giriş Yap
