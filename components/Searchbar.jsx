@@ -9,7 +9,7 @@ const Searchbar = ({ className }) => {
       <input
         type="text"
         placeholder="Ara..."
-        className="flex-auto rounded-full border-2 border-accentRed bg-background px-3 py-1 text-text focus:border-accentBlue focus:outline-none"
+        className="dark:bg-darkBackground dark:text-darkText flex-auto rounded-full border-2 border-accentRed bg-background px-3 py-1 text-text focus:border-accentBlue focus:outline-none"
       />
     </div>
   );

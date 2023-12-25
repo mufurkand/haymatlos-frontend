@@ -2,7 +2,7 @@ import PostContainer from "@/components/PostContainer";
 
 const Home = () => {
   return (
-    <div className="bg-background">
+    <div className="dark:bg-darkBackground bg-background">
       <PostContainer />
     </div>
   );

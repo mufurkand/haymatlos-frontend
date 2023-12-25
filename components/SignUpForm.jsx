@@ -22,10 +22,10 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex w-full justify-center bg-background">
+    <div className="dark:bg-darkBackground flex w-full justify-center bg-background">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-5 p-5 text-text sm:w-1/4"
+        className="dark:text-darkText flex flex-col gap-5 p-5 text-text sm:w-1/4"
       >
         <label>Kullanıcı Adı</label>
         <Input placeholder="Kullanıcı Adı" type="text" name="nickname" />
@@ -53,7 +53,7 @@ const SignUpForm = () => {
         </div>
         <div className="flex justify-center">
           <button
-            className="rounded-md bg-foreground p-2 hover:bg-accentRed"
+            className="dark:bg-darkForeground rounded-md bg-foreground p-2 hover:bg-accentRed"
             type="submit"
           >
             Kaydol

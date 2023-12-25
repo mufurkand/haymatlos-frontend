@@ -19,7 +19,7 @@ export const Post = ({ post, isLink = true }) => {
   const postBody = (
     <>
       <div className="flex justify-between text-white">{post.title}</div>
-      <div className="text-text">{post.content}</div>
+      <div className="dark:text-darkText text-text">{post.content}</div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-2">
           <div className="flex items-center justify-between gap-1 text-gray-500">
@@ -50,12 +50,12 @@ export const Post = ({ post, isLink = true }) => {
         // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
-          className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+          className="dark:bg-darkForeground flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
         >
           {postBody}
         </Link>
       ) : (
-        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+        <div className="dark:bg-darkForeground flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
           {postBody}
         </div>
       )}
@@ -69,8 +69,9 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
   return (
     <button
       className={
-        "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
+        "dark:text-darkText flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
         " " +
+        // TODO: may break on dark mode
         (isActive
           ? "border-foreground bg-accentRed"
           : "border-accentRed bg-foreground") +
@@ -120,7 +121,7 @@ const PostContainer = () => {
         <Searchbar />
       </div>
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
+      <div className="dark:bg-darkBackground mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
         {categories.map((category) => (
           <Category
             key={category.id}
@@ -131,7 +132,7 @@ const PostContainer = () => {
         ))}
       </div>
       {/* Posts */}
-      <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
+      <div className="dark:bg-darkBackground flex w-full flex-col gap-5 overflow-auto bg-background">
         {posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}

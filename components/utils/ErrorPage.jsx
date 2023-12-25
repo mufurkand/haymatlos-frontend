@@ -4,7 +4,7 @@ const ErrorPage = ({ message }) => {
       <span className="bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
         Ah. Bir şeyler ters gitti.
       </span>
-      <span className="text-text">
+      <span className="dark:text-darkText text-text">
         {message + " Lütfen daha sonra tekrar dene."}
       </span>
     </div>

@@ -38,7 +38,7 @@ const UserSection = () => {
     <div
       ref={dropdownRef}
       className={
-        "relative bg-accentRed p-2 text-text" +
+        "relative bg-accentRed p-2 text-white" +
         " " +
         (toggleDropdown ? "rounded-t-md" : "rounded-md")
       }
