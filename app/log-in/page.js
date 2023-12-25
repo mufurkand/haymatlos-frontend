@@ -2,8 +2,8 @@
 
 import LogInForm from "@/components/LogInForm";
 
-const page = () => {
+const Page = () => {
   return <LogInForm />;
 };
 
-export default page;
+export default Page;

@@ -1,9 +1,15 @@
 const Post = () => {
-  return <div className="h-96 w-full bg-foreground"></div>;
+  return <div className="h-48 w-full bg-foreground"></div>;
 };
 
 const Category = () => {
-  return <div className={"flex h-full w-20 rounded-lg bg-foreground"}></div>;
+  return (
+    <div
+      className={
+        "flex h-full w-20 rounded-lg border-2 border-accentRed bg-foreground"
+      }
+    ></div>
+  );
 };
 
 const PostContainerSkeleton = () => {

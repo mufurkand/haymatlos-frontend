@@ -12,6 +12,7 @@ import Link from "next/link";
 // import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
 import PostContainerSkeleton from "./skeletons/PostContainerSkeleton";
+import ErrorPage from "./utils/ErrorPage";
 
 export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
@@ -49,12 +50,12 @@ export const Post = ({ post, isLink = true }) => {
         // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
-          className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+          className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
         >
           {postBody}
         </Link>
       ) : (
-        <div className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
           {postBody}
         </div>
       )}
@@ -95,28 +96,21 @@ const PostContainer = () => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // component mount
-  /* useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("https://192.168.175.227:7090/posts");
-      const data = await response.json();
-      setPosts(data.data["$values"]);
-    };
-
-    fetchPosts();
-  }, []); */
-
+  // on mount
   useEffect(() => {
     fetch("https://192.168.175.227:7090/posts")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data.data["$values"]);
         setIsLoading(false);
-      });
+      })
+      .catch((error) => setError(error));
   }, []);
 
   if (isLoading) return <PostContainerSkeleton />;
+  if (error) return <ErrorPage />;
 
   return (
     <div className="flex flex-col items-center p-5">
@@ -137,7 +131,7 @@ const PostContainer = () => {
         ))}
       </div>
       {/* Posts */}
-      <div className="flex flex-col gap-5 overflow-auto bg-background">
+      <div className="flex w-full flex-col gap-5 overflow-auto bg-background">
         {posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}

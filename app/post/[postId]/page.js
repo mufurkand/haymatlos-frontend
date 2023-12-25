@@ -1,7 +1,7 @@
 import posts from "@/tests/posts";
 import { Post } from "@/components/PostContainer";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const post = posts.find((post) => post.id === params.postId);
   return (
     <div className="bg-background p-5">
@@ -10,4 +10,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
