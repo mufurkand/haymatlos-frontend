@@ -2,7 +2,7 @@ import Searchbar from "./Searchbar";
 import UserSection from "./UserSection";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
@@ -22,8 +22,8 @@ const Navbar = () => {
         <div className="relative flex items-center justify-end gap-3 sm:basis-1/4">
           <Link href="/post" className="flex items-center">
             <FontAwesomeIcon
-              className="rounded-lg bg-accentRed p-2 text-white"
-              icon={faPlus}
+              className="rounded-full bg-accentRed p-2 text-white"
+              icon={faPenToSquare}
             />
           </Link>
           <UserSection />

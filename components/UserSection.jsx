@@ -59,7 +59,10 @@ const UserSection = () => {
           <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
             Giriş Yap
           </Link>
-          {/* TODO: add a searchbar for mobile */}
+          <hr className="border-red-white h-px w-full" />
+          <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
+            Hakkımızda
+          </Link>
         </div>
       )}
     </div>
