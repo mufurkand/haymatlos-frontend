@@ -59,7 +59,7 @@ const UserSection = () => {
           <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
             Giriş Yap
           </Link>
-          <hr className="border-red-white h-px w-full" />
+          <hr className="h-px w-full border-white" />
           <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
             Hakkımızda
           </Link>
