@@ -1,6 +1,8 @@
 import Searchbar from "./Searchbar";
 import UserSection from "./UserSection";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   return (
@@ -17,7 +19,13 @@ const Navbar = () => {
         <div className="hidden sm:flex sm:flex-auto">
           <Searchbar className="sm:flex-auto sm:basis-2/4" />
         </div>
-        <div className="relative flex justify-end sm:basis-1/4">
+        <div className="relative flex items-center justify-end gap-3 sm:basis-1/4">
+          <Link href="/post" className="flex items-center">
+            <FontAwesomeIcon
+              className="rounded-lg bg-accentRed p-2 text-white"
+              icon={faPlus}
+            />
+          </Link>
           <UserSection />
         </div>
       </div>

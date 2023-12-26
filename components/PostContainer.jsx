@@ -11,14 +11,14 @@ import Link from "next/link";
 
 // import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
-import PostContainerSkeleton from "./skeletons/PostContainerSkeleton";
-import ErrorPage from "./utils/ErrorPage";
+import PostContainerSkeleton from "@/components/skeletons/PostContainerSkeleton";
+import ErrorPage from "@/components/utils/ErrorPage";
 
 export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
   const postBody = (
     <>
-      <div className="flex justify-between text-white dark:text-black">
+      <div className="flex justify-between text-black dark:text-white">
         {post.title}
       </div>
       <div className="text-text dark:text-darkText">{post.content}</div>
@@ -49,7 +49,6 @@ export const Post = ({ post, isLink = true }) => {
   return (
     <>
       {isLink ? (
-        // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
           className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
@@ -65,18 +64,18 @@ export const Post = ({ post, isLink = true }) => {
   );
 };
 
-const Category = ({ category, activeCategory, setActiveCategory }) => {
+export const Category = ({ category, activeCategory, setActiveCategory }) => {
   const isActive = activeCategory === category.id;
 
   return (
     <button
       className={
-        "flex items-center rounded-lg border-2 border-solid p-2 text-center text-text transition-all dark:text-darkText" +
+        "flex items-center rounded-lg border-2 border-solid p-2 text-center transition-all" +
         " " +
         // TODO: may break on dark mode
         (isActive
-          ? "border-foreground bg-accentRed"
-          : "border-accentRed bg-foreground")
+          ? "border-foreground bg-accentRed text-white dark:border-darkForeground"
+          : "border-accentRed bg-foreground text-text dark:bg-darkForeground dark:text-darkText")
       }
       onClick={() => setActiveCategory(category.id)}
     >
