@@ -5,6 +5,8 @@ import TextArea from "@/components/utils/TextArea";
 import { useState } from "react";
 import { Category } from "@/components/PostContainer";
 
+// TODO: input validation
+
 const CreatePostForm = () => {
   const categories = [
     { name: "Kültür/Sanat", id: "culture" },
@@ -17,7 +19,13 @@ const CreatePostForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // TODO: Handle post submission
+    const title = event.target.title.value;
+    const content = event.target.content.value;
+    const imageUrl = event.target.imageUrl.value;
+    const date = new Date().toISOString();
+    const category = activeCategory;
+
+    console.log(title, content, imageUrl, date, category);
   };
 
   return (

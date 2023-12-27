@@ -43,6 +43,7 @@ const SignUpForm = () => {
             name="password"
           />
           <button
+            type="button"
             className="absolute right-2 top-2"
             onClick={(e) => {
               e.preventDefault();
