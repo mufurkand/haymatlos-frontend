@@ -8,10 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useUserContext } from "@/contexts/UserContext";
 
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const { user } = useUserContext();
 
   // close the dropdown menu when clicked outside or on scroll
   useEffect(() => {
@@ -48,7 +50,7 @@ const UserSection = () => {
         onClick={() => setToggleDropdown((td) => !td)}
       >
         <FontAwesomeIcon icon={faUser} />
-        <div>Misafir</div>
+        <div>{user === null ? "Misafir" : user.nickname}</div>
         <FontAwesomeIcon icon={toggleDropdown ? faAngleUp : faAngleDown} />
       </button>
       {toggleDropdown && (

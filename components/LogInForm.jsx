@@ -3,20 +3,30 @@ import { useState } from "react";
 import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useUserContext } from "@/contexts/UserContext";
 
 const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const { user, setUser } = useUserContext();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const nickname = event.target.nickname.value;
+    const username = event.target.nickname.value;
     const password = event.target.password.value;
     const response = await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
-        `/users/login?nickname=${nickname}&password=${password}`,
+        `/users/login?nickname=${username}&password=${password}`,
     );
-    const data = await response.json();
-    console.log(data);
+
+    const { nickname, role, token, uuid } = await response.json();
+    const user = {
+      nickname,
+      role,
+      token,
+      uuid,
+    };
+
+    setUser(user);
   };
 
   return (
