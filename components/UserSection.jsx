@@ -13,7 +13,7 @@ import { useUserContext } from "@/contexts/UserContext";
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   // close the dropdown menu when clicked outside or on scroll
   useEffect(() => {
@@ -36,6 +36,12 @@ const UserSection = () => {
     };
   }, []);
 
+  const logOut = () => {
+    setUser(null);
+    setToggleDropdown(false);
+    // TODO: handle localStorage
+  };
+
   return (
     <div
       ref={dropdownRef}
@@ -55,13 +61,25 @@ const UserSection = () => {
       </button>
       {toggleDropdown && (
         <div className="absolute left-0 top-10 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2">
-          <Link href="/sign-up" onClick={() => setToggleDropdown((td) => !td)}>
-            Kayıt Ol
-          </Link>
-          <Link href="/log-in" onClick={() => setToggleDropdown((td) => !td)}>
-            Giriş Yap
-          </Link>
-          <hr className="h-px w-full border-white" />
+          {user === null ? (
+            <>
+              <Link
+                href="/sign-up"
+                onClick={() => setToggleDropdown((td) => !td)}
+              >
+                Kayıt Ol
+              </Link>
+              <Link
+                href="/log-in"
+                onClick={() => setToggleDropdown((td) => !td)}
+              >
+                Giriş Yap
+              </Link>
+              <hr className="h-px w-full border-white" />
+            </>
+          ) : (
+            <button onClick={() => logOut()}>Çıkış Yap</button>
+          )}
           <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
             Hakkımızda
           </Link>

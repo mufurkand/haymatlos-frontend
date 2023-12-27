@@ -1,5 +1,3 @@
-"use client";
-
 import LogInForm from "@/components/LogInForm";
 
 const Page = () => {
