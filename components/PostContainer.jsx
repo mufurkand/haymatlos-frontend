@@ -101,17 +101,21 @@ const PostContainer = () => {
 
   // on mount
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts")
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data.data["$values"]);
-        setIsLoading(false);
-      })
-      .catch((error) => setError(error));
+    const getPosts = async () => {
+      await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts")
+        .then((res) => res.json())
+        .then((data) => {
+          setPosts(data.data["$values"]);
+          setIsLoading(false);
+        })
+        .catch((error) => setError(error));
+    };
+
+    getPosts();
   }, []);
 
   if (isLoading) return <PostContainerSkeleton />;
-  if (error) return <ErrorPage />;
+  if (error) return <ErrorPage message={error.message} />;
 
   return (
     <div className="flex flex-col items-center p-5">

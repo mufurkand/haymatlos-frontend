@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { setUser } = useUserContext();
   const router = useRouter();
 
   const handleSubmit = async (event) => {

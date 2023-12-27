@@ -15,7 +15,7 @@ const SignUpForm = () => {
     event.preventDefault();
     const nickname = event.target.nickname.value;
     const password = event.target.password.value;
-    const response = await fetch(
+    await fetch(
       process.env.NEXT_PUBLIC_BACKEND_URL +
         `/users?nickname=${nickname}&password=${password}`,
       {

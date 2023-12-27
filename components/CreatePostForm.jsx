@@ -4,6 +4,7 @@ import Input from "@/components/utils/Input";
 import TextArea from "@/components/utils/TextArea";
 import { useState } from "react";
 import { Category } from "@/components/PostContainer";
+import { useUserContext } from "@/contexts/UserContext";
 
 // TODO: input validation
 
@@ -15,6 +16,7 @@ const CreatePostForm = () => {
     { name: "Siyaset", id: "politics" },
   ];
 
+  const { user } = useUserContext();
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
 
   const handleSubmit = async (event) => {
@@ -26,6 +28,25 @@ const CreatePostForm = () => {
     const category = activeCategory;
 
     console.log(title, content, imageUrl, date, category);
+
+    // FIXME: somehow sends the request to localhost
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_ENV + "/post?userId=" + user.uuid,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          title,
+          content,
+          imageUrl,
+          regDate: date,
+          category,
+          like: 0,
+          dislike: 0,
+        }),
+      },
+    );
+    const data = await response.text();
+    console.log(data);
     // router push
   };
 
