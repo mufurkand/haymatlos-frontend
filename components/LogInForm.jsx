@@ -6,10 +6,12 @@ import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "@/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { user, setUser } = useUserContext();
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ const LogInForm = () => {
     };
 
     setUser(user);
+    router.push("/");
   };
 
   return (

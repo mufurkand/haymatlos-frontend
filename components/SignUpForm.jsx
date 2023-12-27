@@ -5,9 +5,11 @@ import { useState } from "react";
 import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,8 +22,7 @@ const SignUpForm = () => {
         method: "POST",
       },
     );
-    const data = await response.json();
-    console.log(data);
+    router.push("/");
   };
 
   return (

@@ -26,6 +26,7 @@ const CreatePostForm = () => {
     const category = activeCategory;
 
     console.log(title, content, imageUrl, date, category);
+    // router push
   };
 
   return (
