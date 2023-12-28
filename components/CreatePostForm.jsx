@@ -5,6 +5,7 @@ import TextArea from "@/components/utils/TextArea";
 import { useState } from "react";
 import { Category } from "@/components/PostContainer";
 import { useUserContext } from "@/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 // TODO: input validation
 
@@ -18,38 +19,37 @@ const CreatePostForm = () => {
 
   const { user } = useUserContext();
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const title = event.target.title.value;
     const content = event.target.content.value;
     const imageUrl = event.target.imageUrl.value;
-    const date = new Date().toISOString();
     const category = activeCategory;
-
-    console.log(title, content, imageUrl, date, category);
 
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL + "/posts?userId=" + user.uuid;
 
     console.log(url);
 
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
-        Accept: "text/plain",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: "asd",
-        content: "asdasd",
-        imageUrl: "asdasdasd",
-        category: "culture",
+        title,
+        content,
+        imageUrl,
+        category,
       }),
     })
       .then((response) => response.text())
       .then((data) => console.log(data))
       .catch((error) => console.error("Error:", error));
+
+    router.push("/");
   };
 
   return (

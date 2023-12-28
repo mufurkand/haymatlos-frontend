@@ -102,7 +102,15 @@ const PostContainer = () => {
   // on mount
   useEffect(() => {
     const getPosts = async () => {
-      await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/posts")
+      console.log("Active category: " + activeCategory);
+      await fetch(
+        process.env.NEXT_PUBLIC_BACKEND_URL +
+          "/posts" +
+          (activeCategory === "home"
+            ? "?"
+            : "/category?category=" + activeCategory + "&") +
+          "pageSize=20",
+      )
         .then((res) => res.json())
         .then((data) => {
           setPosts(data.data["$values"]);
@@ -112,7 +120,8 @@ const PostContainer = () => {
     };
 
     getPosts();
-  }, []);
+    console.log(posts);
+  }, [activeCategory]);
 
   if (isLoading) return <PostContainerSkeleton />;
   if (error) return <ErrorPage message={error.message} />;
