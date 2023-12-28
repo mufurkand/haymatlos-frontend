@@ -29,25 +29,27 @@ const CreatePostForm = () => {
 
     console.log(title, content, imageUrl, date, category);
 
-    // FIXME: somehow sends the request to localhost
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_ENV + "/post?userId=" + user.uuid,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title,
-          content,
-          imageUrl,
-          regDate: date,
-          category,
-          like: 0,
-          dislike: 0,
-        }),
+    const url =
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/posts?userId=" + user.uuid;
+
+    console.log(url);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "text/plain",
+        "Content-Type": "application/json",
       },
-    );
-    const data = await response.text();
-    console.log(data);
-    // router push
+      body: JSON.stringify({
+        title: "asd",
+        content: "asdasd",
+        imageUrl: "asdasdasd",
+        category: "culture",
+      }),
+    })
+      .then((response) => response.text())
+      .then((data) => console.log(data))
+      .catch((error) => console.error("Error:", error));
   };
 
   return (

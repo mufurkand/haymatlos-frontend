@@ -18,7 +18,7 @@ export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
   const postBody = (
     <>
-      <div className="flex justify-between text-black dark:text-white">
+      <div className="flex justify-between text-lg font-semibold text-black dark:text-white">
         {post.title}
       </div>
       <div className="text-text dark:text-darkText">{post.content}</div>
