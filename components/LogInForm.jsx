@@ -64,7 +64,7 @@ const LogInForm = () => {
         </div>
         <div className="flex justify-center">
           <button
-            className="rounded-md bg-foreground p-2 hover:bg-accentRed dark:bg-darkForeground"
+            className="rounded-md bg-foreground p-2 transition-all hover:bg-accentRed hover:text-white dark:bg-darkForeground"
             type="submit"
           >
             Giriş Yap
