@@ -11,13 +11,24 @@ import Link from "next/link";
 
 // import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
+import PostContainerSkeleton from "@/components/skeletons/PostContainerSkeleton";
+import ErrorPage from "@/components/utils/ErrorPage";
 
 export const Post = ({ post, isLink = true }) => {
   const date = new Date(post.regDate);
+
   const postBody = (
     <>
-      <div className="flex justify-between text-white">{post.title}</div>
-      <div className="text-text">{post.content}</div>
+      <div className="flex justify-between text-lg font-semibold text-black dark:text-white">
+        {post.title}
+      </div>
+      {/* TODO: img validation */}
+      <img
+        className="rounded-lg"
+        src={post.imageUrl}
+        onError={(e) => (e.target.style.display = "none")}
+      />
+      <div className="text-text dark:text-darkText">{post.content}</div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-2">
           <div className="flex items-center justify-between gap-1 text-gray-500">
@@ -45,15 +56,14 @@ export const Post = ({ post, isLink = true }) => {
   return (
     <>
       {isLink ? (
-        // TODO: implement a better empty post width method instead of fixed width
         <Link
           href={"/post/" + post.id}
-          className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5"
+          className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
         >
           {postBody}
         </Link>
       ) : (
-        <div className="flex w-96 flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5">
+        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground">
           {postBody}
         </div>
       )}
@@ -61,19 +71,19 @@ export const Post = ({ post, isLink = true }) => {
   );
 };
 
-const Category = ({ category, activeCategory, setActiveCategory }) => {
+export const Category = ({ category, activeCategory, setActiveCategory }) => {
   const isActive = activeCategory === category.id;
 
   return (
     <button
+      type="button"
       className={
-        "flex items-center border-2 border-solid p-2 text-center text-text transition-all" +
+        "flex items-center rounded-lg border-2 border-solid p-2 text-center transition-all" +
         " " +
+        // TODO: may break on dark mode
         (isActive
-          ? "border-foreground bg-accentRed"
-          : "border-accentRed bg-foreground") +
-        " " +
-        (isActive ? "rounded-full" : "rounded-lg")
+          ? "border-foreground bg-accentRed text-white dark:border-darkForeground"
+          : "border-accentRed bg-foreground text-text dark:bg-darkForeground dark:text-darkText")
       }
       onClick={() => setActiveCategory(category.id)}
     >
@@ -93,17 +103,35 @@ const PostContainer = () => {
 
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // component mount
+  // on mount
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("https://192.168.175.227:7090/posts");
-      const data = await response.json();
-      setPosts(data.data["$values"]);
+    const getPosts = async () => {
+      console.log("Active category: " + activeCategory);
+      await fetch(
+        process.env.NEXT_PUBLIC_BACKEND_URL +
+          "/posts" +
+          (activeCategory === "home"
+            ? "?"
+            : "/category?category=" + activeCategory + "&") +
+          "pageSize=20",
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setPosts(data.data["$values"]);
+          setIsLoading(false);
+        })
+        .catch((error) => setError(error));
     };
 
-    fetchPosts();
-  }, []);
+    getPosts();
+    console.log(posts);
+  }, [activeCategory]);
+
+  if (isLoading) return <PostContainerSkeleton />;
+  if (error) return <ErrorPage message={error.message} />;
 
   return (
     <div className="flex flex-col items-center p-5">
@@ -113,7 +141,7 @@ const PostContainer = () => {
         <Searchbar />
       </div>
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background sm:justify-center">
+      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground sm:justify-center">
         {categories.map((category) => (
           <Category
             key={category.id}
@@ -124,7 +152,7 @@ const PostContainer = () => {
         ))}
       </div>
       {/* Posts */}
-      <div className="flex flex-col gap-5 overflow-auto bg-background">
+      <div className="flex w-full flex-col gap-5 overflow-auto bg-background dark:bg-darkBackground">
         {posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}

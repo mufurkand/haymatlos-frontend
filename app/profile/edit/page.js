@@ -6,4 +6,4 @@ const page = () => {
   return <ProfileEdit/>;
 };
 
-export default page;
+export default Page;
