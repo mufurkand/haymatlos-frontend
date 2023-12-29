@@ -4,7 +4,7 @@ const Page = () => {
       <h1 className="self-start bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
         Haymatlos ne demek?
       </h1>
-      <p>
+      <p className="text-text dark:text-darkText">
         Haymatlos, Türkçede "vatansız" anlamına gelen bir kelimedir.
         Uluslararası hukukta da kullanılan bu kelime, herhangi bir devletin
         vatandaşı olmayan kişileri tanımlamak için kullanılır. Haymatloslar,

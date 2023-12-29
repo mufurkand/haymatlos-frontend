@@ -10,6 +10,8 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useUserContext } from "@/contexts/UserContext";
 
+// TODO: set a fixed width so the box width doesn't change when icons are loaded
+
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const dropdownRef = useRef(null);
