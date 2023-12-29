@@ -10,7 +10,7 @@ import { useUserContext } from "@/contexts/UserContext";
 const Navbar = () => {
   const { user } = useUserContext();
   return (
-    <div className="fixed left-0 top-0 flex w-full flex-col">
+    <div className="fixed left-0 top-0 w-full">
       <div className="flex h-14 w-auto items-center justify-between gap-5 bg-foreground px-5 text-text dark:bg-darkForeground dark:text-darkText sm:px-14">
         <Link
           href="/"

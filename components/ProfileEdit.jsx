@@ -12,25 +12,25 @@ const ProfileEdit = () => {
   };
 
   return (
-    <div className="flex w-full justify-center bg-background dark:bg-darkBackground">
+    <div className="flex w-full justify-center bg-background dark:bg-darkBackground md:rounded-lg">
       <form
         className="flex flex-col gap-5 p-5 text-text dark:text-darkText sm:w-2/5"
         onSubmit={handleSubmit}
       >
         <label> Profil Fotoğrafı</label>
         {/* avatar yoksa placeholder iskelet? */}
-        <div className="flex items-center justify-center self-start">
+        <div className="flex items-center justify-center">
           <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full bg-accentRed p-10 text-white">
             <FontAwesomeIcon className="flex-1" icon={faUser} />
           </div>
           <button //resmin üzerine koymak?
             type="button"
-            className="flex h-4 w-4 items-center justify-center self-end rounded-full bg-accentRed p-5 text-white"
+            className="flex h-12 w-12 flex-col items-center justify-center self-end rounded-full bg-accentRed p-3 text-white"
             onClick={() => {
               //change avatar
             }}
           >
-            <FontAwesomeIcon icon={faCamera} />
+            <FontAwesomeIcon className="flex-1" icon={faCamera} />
           </button>
         </div>
 

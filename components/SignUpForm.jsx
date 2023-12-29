@@ -27,7 +27,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className="flex w-full justify-center bg-background dark:bg-darkBackground">
+    <div className="flex w-full justify-center bg-background dark:bg-darkBackground md:rounded-lg">
       <form
         onSubmit={handleSubmit}
         className="flex flex-col gap-5 p-5 text-text dark:text-darkText sm:w-1/4"
@@ -46,13 +46,14 @@ const SignUpForm = () => {
           />
           <button
             type="button"
-            className="absolute right-2 top-2"
+            className="absolute right-3 top-3 flex h-4 w-4 flex-col items-center justify-center"
             onClick={(e) => {
               e.preventDefault();
               setPasswordShown((ps) => !ps);
             }}
           >
             <FontAwesomeIcon
+              className="flex-1"
               icon={passwordShown ? faEyeSlash : faEye}
             ></FontAwesomeIcon>
           </button>

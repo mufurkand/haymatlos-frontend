@@ -48,21 +48,30 @@ const UserSection = () => {
     <div
       ref={dropdownRef}
       className={
-        "relative bg-accentRed p-2 text-white" +
+        "relative bg-accentRed p-1 text-white" +
         " " +
         (toggleDropdown ? "rounded-t-md" : "rounded-md")
       }
     >
       <button
-        className="flex items-center justify-center gap-3"
+        className="w-30 flex items-center justify-center gap-2"
         onClick={() => setToggleDropdown((td) => !td)}
       >
-        <FontAwesomeIcon icon={faUser} />
-        <div>{user === null ? "Misafir" : user.nickname}</div>
-        <FontAwesomeIcon icon={toggleDropdown ? faAngleUp : faAngleDown} />
+        <div className="flex w-6 flex-col items-center justify-center p-1">
+          <FontAwesomeIcon className="flex-1" icon={faUser} />
+        </div>
+        <div className="text-lg">
+          {user === null ? "Misafir" : user.nickname}
+        </div>
+        <div className="flex h-7 w-7 flex-col items-center justify-center p-1">
+          <FontAwesomeIcon
+            className="flex-1"
+            icon={toggleDropdown ? faAngleUp : faAngleDown}
+          />
+        </div>
       </button>
       {toggleDropdown && (
-        <div className="absolute left-0 top-10 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2">
+        <div className="absolute left-0 top-9 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2">
           {user === null ? (
             <>
               <Link

@@ -109,25 +109,27 @@ const PostContainer = () => {
   // on mount
   useEffect(() => {
     const getPosts = async () => {
-      console.log("Active category: " + activeCategory);
-      await fetch(
+      const url =
         process.env.NEXT_PUBLIC_BACKEND_URL +
-          "/posts" +
-          (activeCategory === "home"
-            ? "?"
-            : "/category?category=" + activeCategory + "&") +
-          "pageSize=20",
-      )
+        "/posts" +
+        (activeCategory === "home"
+          ? "?"
+          : "/category?category=" + activeCategory + "&") +
+        "pageSize=20";
+
+      await fetch(url)
         .then((res) => res.json())
         .then((data) => {
           setPosts(data.data["$values"]);
           setIsLoading(false);
         })
-        .catch((error) => setError(error));
+        .catch(() => {
+          setIsLoading(false);
+          setError(new Error("Sunucu ile bağlantı kuramadık."));
+        });
     };
 
     getPosts();
-    console.log(posts);
   }, [activeCategory]);
 
   if (isLoading) return <PostContainerSkeleton />;
@@ -141,7 +143,7 @@ const PostContainer = () => {
         <Searchbar />
       </div>
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground sm:justify-center">
+      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground sm:justify-center md:rounded-lg">
         {categories.map((category) => (
           <Category
             key={category.id}

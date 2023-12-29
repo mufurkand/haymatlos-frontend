@@ -5,7 +5,7 @@ const Page = () => {
         Haymatlos ne demek?
       </h1>
       <p className="text-text dark:text-darkText">
-        Haymatlos, Türkçede "vatansız" anlamına gelen bir kelimedir.
+        Haymatlos, Türkçe'de "vatansız" anlamına gelen bir kelimedir.
         Uluslararası hukukta da kullanılan bu kelime, herhangi bir devletin
         vatandaşı olmayan kişileri tanımlamak için kullanılır. Haymatloslar,
         yasal olarak vatanları olmayan ve bu nedenle temel hak ve özgürlüklerden
