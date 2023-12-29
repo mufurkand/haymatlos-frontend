@@ -1,5 +1,9 @@
+"use client";
+
+import ProfileEdit from "@/components/ProfileEdit";
+
 const page = () => {
-  return <div>page</div>;
+  return <ProfileEdit/>;
 };
 
 export default page;
