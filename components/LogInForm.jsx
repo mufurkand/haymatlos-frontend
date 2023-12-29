@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
+import Button from "@/components/utils/Button";
 
 const LogInForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -63,12 +64,7 @@ const LogInForm = () => {
           </button>
         </div>
         <div className="flex justify-center">
-          <button
-            className="rounded-md bg-foreground p-2 transition-all hover:bg-accentRed hover:text-white dark:bg-darkForeground"
-            type="submit"
-          >
-            Giriş Yap
-          </button>
+          <Button content="Giriş Yap" isSubmitButton={true} />
         </div>
       </form>
     </div>

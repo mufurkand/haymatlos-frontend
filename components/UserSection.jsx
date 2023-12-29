@@ -83,7 +83,7 @@ const UserSection = () => {
             <button onClick={() => logOut()}>Çıkış Yap</button>
           )}
           <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
-            Hakkımızda
+            S.S.S.
           </Link>
         </div>
       )}

@@ -3,6 +3,7 @@
 import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
+import Button from "@/components/utils/Button";
 
 const ProfileEdit = () => {
   const handleSubmit = async (event) => {
@@ -51,22 +52,9 @@ const ProfileEdit = () => {
         </select>
 
         <div className="flex justify-center gap-5">
-          <button
-            className="rounded-md bg-foreground p-2 hover:bg-accentRed hover:text-white dark:bg-darkForeground"
-            onClick={() => {}}
-          >
-            Güncelle
-          </button>
-
-          <button
-            className="rounded-md bg-foreground p-2 hover:bg-accentRed hover:text-white dark:bg-darkForeground"
-            type="button"
-            onClick={() => {
-              //profil sayfasına dön
-            }}
-          >
-            Vazgeç
-          </button>
+          <Button content="Güncelle" isSubmitButton={true} />
+          {/* TODO: lacks an onClick */}
+          <Button content="Vazgeç" isSubmitButton={false} />
         </div>
       </form>
     </div>

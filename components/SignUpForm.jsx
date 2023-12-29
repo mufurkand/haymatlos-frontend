@@ -6,6 +6,7 @@ import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import Button from "@/components/utils/Button";
 
 const SignUpForm = () => {
   const [passwordShown, setPasswordShown] = useState(false);
@@ -57,12 +58,7 @@ const SignUpForm = () => {
           </button>
         </div>
         <div className="flex justify-center">
-          <button
-            className="rounded-md bg-foreground p-2 hover:bg-accentRed dark:bg-darkForeground"
-            type="submit"
-          >
-            Kaydol
-          </button>
+          <Button content="Kaydol" isSubmitButton={true} />
         </div>
       </form>
     </div>
