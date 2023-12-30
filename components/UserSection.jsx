@@ -60,9 +60,7 @@ const UserSection = () => {
         <div className="flex w-6 flex-col items-center justify-center p-1">
           <FontAwesomeIcon className="flex-1" icon={faUser} />
         </div>
-        <div className="text-lg">
-          {user === null ? "Misafir" : user.nickname}
-        </div>
+        <div>{user === null ? "Misafir" : user.nickname}</div>
         <div className="flex h-7 w-7 flex-col items-center justify-center p-1">
           <FontAwesomeIcon
             className="flex-1"

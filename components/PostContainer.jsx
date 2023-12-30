@@ -136,14 +136,14 @@ const PostContainer = () => {
   if (error) return <ErrorPage message={error.message} />;
 
   return (
-    <div className="flex flex-col items-center p-5">
+    <div className="flex flex-col items-center bg-background p-5 dark:bg-darkBackground md:rounded-lg">
       {/* Searchbar for Mobile */}
       {/* TODO: add a search button to navbar and dynamically show searchbar */}
       <div className="mb-5 flex w-full sm:mb-0 sm:hidden">
         <Searchbar />
       </div>
       {/* Categories */}
-      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground sm:justify-center md:rounded-lg">
+      <div className="mb-5 flex h-14 w-full items-center gap-5 overflow-auto sm:justify-center">
         {categories.map((category) => (
           <Category
             key={category.id}
