@@ -1,3 +1,5 @@
+// TODO: combine both not found page and unauthorized page into a generic one
+
 const NotFoundPage = () => {
   return (
     <div className="flex h-[calc(100vh-3.5rem)] items-center justify-center gap-5">

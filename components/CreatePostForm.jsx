@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Category } from "@/components/PostContainer";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
+import { validateImageUrl } from "@/utils/validation";
+import UnauthorizedPage from "./utils/UnauthorizedPage";
 
 // TODO: input validation
 
@@ -19,7 +21,23 @@ const CreatePostForm = () => {
 
   const { user } = useUserContext();
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [error, setError] = useState(null);
   const router = useRouter();
+
+  const validateForm = (title, content, imageUrl) => {
+    let tempErrors = {};
+
+    if (title.length > 100)
+      tempErrors.title = "Başlık 100 karakterden fazla olamaz.";
+    if (content.length > 2000)
+      tempErrors.content = "İçerik 2000 karakterden fazla olamaz.";
+    if (!validateImageUrl(imageUrl))
+      tempErrors.imageUrl = "Lütfen geçerli bir link giriniz.";
+
+    setValidationErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,6 +45,8 @@ const CreatePostForm = () => {
     const content = event.target.content.value;
     const imageUrl = event.target.imageUrl.value;
     const category = activeCategory;
+
+    if (!validateForm(title, content, imageUrl)) return;
 
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL + "/posts?userId=" + user.uuid;
@@ -47,10 +67,13 @@ const CreatePostForm = () => {
     })
       .then((response) => response.text())
       .then((data) => console.log(data))
-      .catch((error) => console.error("Error:", error));
+      .catch((error) => setError(new Error("Sunucu ile bağlantı kuramadık.")));
 
     router.push("/");
   };
+
+  if (user === null) return <UnauthorizedPage />;
+  if (error !== null) return <ErrorPage message={error.message} />;
 
   return (
     <div className="flex w-full justify-center bg-background dark:bg-darkBackground">
@@ -59,18 +82,28 @@ const CreatePostForm = () => {
         className="flex w-full max-w-2xl flex-col gap-5 p-5 text-text dark:text-darkText sm:w-1/2"
       >
         <label>Başlık</label>
-        <Input placeholder="Açıklayıcı bir başlık" type="text" name="title" />
+        <Input
+          placeholder="Açıklayıcı bir başlık"
+          type="text"
+          name="title"
+          error={validationErrors.hasOwnProperty("title")}
+          message={validationErrors.title}
+        />
         <label>İçerik</label>
         <TextArea
           placeholder="Gönderi içeriği"
           type="textarea"
           name="content"
+          error={validationErrors.hasOwnProperty("content")}
+          message={validationErrors.content}
         />
         <label>Resim</label>
         <Input
           placeholder="Paylaşmak istediğiniz resmin linki"
           type="text"
           name="imageUrl"
+          error={validationErrors.hasOwnProperty("imageUrl")}
+          message={validationErrors.imageUrl}
         />
         <label>Gönderi Kategorisi</label>
         <div className="flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground">
