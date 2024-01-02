@@ -88,7 +88,7 @@ const UserSection = () => {
             </>
           ) : (
             <>
-              {/* placeholder, will move this functionality to profile page soon. */}
+              {/* TODO: placeholder, will move this functionality to profile page soon. */}
               <Link
                 href="/profile/edit"
                 onClick={() => setToggleDropdown((td) => !td)}

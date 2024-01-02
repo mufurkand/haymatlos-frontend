@@ -1,7 +1,7 @@
-import NotFoundPage from "@/components/utils/NotFoundPage";
+import ErrorCodePage from "@/components/utils/ErrorCodePage";
 
 const NotFound = () => {
-  return <NotFoundPage />;
+  return <ErrorCodePage code="404" message="Sayfa bulunamadı." />;
 };
 
 export default NotFound;

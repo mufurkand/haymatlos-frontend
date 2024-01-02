@@ -60,7 +60,7 @@ export const Post = ({ post, isLink = true }) => {
     <>
       {isLink ? (
         <Link
-          href={"/post/" + post.id}
+          href={"/post/" + post.pkeyUuidPost}
           className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
         >
           {postBody}
@@ -123,6 +123,7 @@ const PostContainer = () => {
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
+          // TODO: deconstruct posts properly
           setPosts(data.data["$values"]);
           setIsLoading(false);
         })

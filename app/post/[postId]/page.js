@@ -1,11 +1,11 @@
-import posts from "@/tests/posts";
+// TODO: create a post page component
 import { Post } from "@/components/PostContainer";
-import NotFoundPage from "@/components/utils/NotFoundPage";
+import ErrorCodePage from "@/components/utils/ErrorCodePage";
 
 const Page = ({ params }) => {
-  const post = posts.find((post) => post.id === params.postId);
+  const post = undefined;
 
-  if (!post) return <NotFoundPage />;
+  if (!post) return <ErrorCodePage code="404" message="Gönderi bulunamadı." />;
 
   return (
     <div className="bg-background p-5">

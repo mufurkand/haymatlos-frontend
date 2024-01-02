@@ -7,7 +7,7 @@ import { Category } from "@/components/PostContainer";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import { validateImageUrl } from "@/utils/validation";
-import UnauthorizedPage from "./utils/UnauthorizedPage";
+import ErrorCodePage from "@/components/utils/ErrorCodePage";
 
 // TODO: input validation
 
@@ -72,7 +72,8 @@ const CreatePostForm = () => {
     router.push("/");
   };
 
-  if (user === null) return <UnauthorizedPage />;
+  if (user === null)
+    return <ErrorCodePage code="401" message="Lütfen giriş yapın." />;
   if (error !== null) return <ErrorPage message={error.message} />;
 
   return (
