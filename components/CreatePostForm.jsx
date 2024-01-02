@@ -32,7 +32,7 @@ const CreatePostForm = () => {
       tempErrors.title = "Başlık 100 karakterden fazla olamaz.";
     if (content.length > 2000)
       tempErrors.content = "İçerik 2000 karakterden fazla olamaz.";
-    if (!validateImageUrl(imageUrl))
+    if (imageUrl === "" ? false : !validateImageUrl(imageUrl))
       tempErrors.imageUrl = "Lütfen geçerli bir link giriniz.";
 
     setValidationErrors(tempErrors);

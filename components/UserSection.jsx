@@ -87,7 +87,16 @@ const UserSection = () => {
               <hr className="h-px w-full border-white" />
             </>
           ) : (
-            <button onClick={() => logOut()}>Çıkış Yap</button>
+            <>
+              {/* placeholder, will move this functionality to profile page soon. */}
+              <Link
+                href="/profile/edit"
+                onClick={() => setToggleDropdown((td) => !td)}
+              >
+                Profili Düzenle
+              </Link>
+              <button onClick={() => logOut()}>Çıkış Yap</button>
+            </>
           )}
           <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
             S.S.S.

@@ -19,15 +19,18 @@ export const Post = ({ post, isLink = true }) => {
 
   const postBody = (
     <>
-      <div className="flex justify-between text-lg font-semibold text-black dark:text-white">
+      <div className="flex justify-between text-2xl text-black dark:text-white">
         {post.title}
       </div>
-      {/* TODO: img validation */}
-      <img
-        className="rounded-lg"
-        src={post.imageUrl}
-        onError={(e) => (e.target.style.display = "none")}
-      />
+      {post.imageUrl !== "" ? (
+        <img
+          className="rounded-lg"
+          src={post.imageUrl}
+          onError={(e) => (e.target.style.display = "none")}
+        />
+      ) : (
+        ""
+      )}
       <div className="text-text dark:text-darkText">{post.content}</div>
       <div className="flex justify-between">
         <div className="flex justify-between gap-2">
