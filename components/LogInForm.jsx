@@ -23,6 +23,9 @@ const LogInForm = () => {
       tempErrors.nickname = "Kullanıcı adı 10 karakterden fazla olamaz.";
     if (password.length > 20)
       tempErrors.password = "Şifre 20 karakterden fazla olamaz.";
+    if (username.length === 0)
+      tempErrors.nickname = "Kullanıcı adı boş olamaz.";
+    if (password.length === 0) tempErrors.password = "Şifre boş olamaz.";
 
     setValidationErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;

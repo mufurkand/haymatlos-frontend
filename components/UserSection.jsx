@@ -9,13 +9,13 @@ import {
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useUserContext } from "@/contexts/UserContext";
-
-// TODO: set a fixed width so the box width doesn't change when icons are loaded
+import { useRouter } from "next/navigation";
 
 const UserSection = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const { user, setUser } = useUserContext();
+  const router = useRouter();
 
   // close the dropdown menu when clicked outside or on scroll
   useEffect(() => {
@@ -41,6 +41,7 @@ const UserSection = () => {
   const logOut = () => {
     setUser(null);
     setToggleDropdown(false);
+    router.push("/");
     // TODO: handle localStorage
   };
 

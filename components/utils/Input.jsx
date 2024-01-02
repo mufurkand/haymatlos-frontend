@@ -1,10 +1,4 @@
-const Input = ({
-  placeholder,
-  type,
-  name,
-  error = false,
-  message = "Bu gizli bir hata mesajıdır. LOLOLOLOL.",
-}) => {
+const Input = ({ placeholder, type, name, error = false, message }) => {
   return (
     <div>
       <input
@@ -15,7 +9,7 @@ const Input = ({
       />
       <p
         className={
-          "text-sm font-light text-red-500" + " " + (error ? "" : "invisible")
+          "text-sm font-light text-red-500" + (message ? "" : " hidden")
         }
       >
         {"*" + message}

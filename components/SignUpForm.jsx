@@ -15,13 +15,17 @@ const SignUpForm = () => {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  const validateForm = (username, password) => {
+  const validateForm = (username, password, email) => {
     let tempErrors = {};
 
     if (username.length > 10)
       tempErrors.nickname = "Kullanıcı adı 10 karakterden fazla olamaz.";
     if (password.length > 20)
       tempErrors.password = "Şifre 20 karakterden fazla olamaz.";
+    if (username.length === 0)
+      tempErrors.nickname = "Kullanıcı adı boş olamaz.";
+    if (password.length === 0) tempErrors.password = "Şifre boş olamaz.";
+    if (email.length === 0) tempErrors.email = "E-posta boş olamaz.";
 
     setValidationErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -32,8 +36,9 @@ const SignUpForm = () => {
 
     const username = event.target.nickname.value;
     const password = event.target.password.value;
+    const email = event.target.email.value;
 
-    if (!validateForm(username, password)) return;
+    if (!validateForm(username, password, email)) return;
 
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL +
@@ -71,7 +76,13 @@ const SignUpForm = () => {
           message={validationErrors.nickname}
         />
         <label>E-posta</label>
-        <Input placeholder="E-posta" type="email" name="email" />
+        <Input
+          placeholder="E-posta"
+          type="email"
+          name="email"
+          error={validationErrors.hasOwnProperty("email")}
+          message={validationErrors.email}
+        />
         {/* password input w/ reveal button */}
         <label>Şifre</label>
         <div className="relative">

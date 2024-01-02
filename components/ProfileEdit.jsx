@@ -4,12 +4,19 @@ import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/components/utils/Button";
+import { useUserContext } from "@/contexts/UserContext";
+import ErrorCodePage from "@/components/utils/ErrorCodePage";
 
 const ProfileEdit = () => {
+  const { user } = useUserContext();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("form submitted");
   };
+
+  if (user === null)
+    return <ErrorCodePage code={401} message="Lütfen giriş yapın." />;
 
   return (
     <div className="flex w-full justify-center bg-background dark:bg-darkBackground md:rounded-lg">
