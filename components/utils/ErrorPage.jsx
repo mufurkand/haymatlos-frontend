@@ -1,3 +1,5 @@
+// the component's name is ErrorPage because Error is a reserved word in JS
+
 const ErrorPage = ({ message }) => {
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-col items-center justify-center gap-5 p-5">

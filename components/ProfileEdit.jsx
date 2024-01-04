@@ -6,9 +6,30 @@ import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/components/utils/Button";
 import { useUserContext } from "@/contexts/UserContext";
 import ErrorCodePage from "@/components/utils/ErrorCodePage";
+import { useEffect } from "react";
 
 const ProfileEdit = () => {
   const { user } = useUserContext();
+
+  useEffect(() => {
+    if (user === null) return;
+
+    const url =
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/users?userId=" + user.uuid;
+
+    const getUserInfo = async () => {
+      await fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) =>
+          setError(new Error("Sunucu ile bağlantı kuramadık.")),
+        );
+    };
+
+    getUserInfo();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,6 +78,13 @@ const ProfileEdit = () => {
           <option value="man">Erkek</option>
           <option value="other">Diğer</option>
         </select>
+
+        <label>Doğum Tarihi</label>
+        <input
+          className="rounded-md bg-foreground p-2 text-text focus:outline-none focus:ring-2 focus:ring-accentRed dark:bg-darkForeground dark:text-darkText dark:[color-scheme:dark]"
+          type="date"
+          name="birthdate"
+        />
 
         <div className="flex justify-center gap-5">
           <Button content="Güncelle" isSubmitButton={true} />

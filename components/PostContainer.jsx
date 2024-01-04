@@ -1,99 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faMessage,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-
-// import posts from "@/tests/posts";
 import Searchbar from "@/components/Searchbar";
 import PostContainerSkeleton from "@/components/skeletons/PostContainerSkeleton";
 import ErrorPage from "@/components/utils/ErrorPage";
-
-export const Post = ({ post, isLink = true }) => {
-  const date = new Date(post.regDate);
-
-  const postBody = (
-    <>
-      <div className="flex justify-between text-2xl text-black dark:text-white">
-        {post.title}
-      </div>
-      {post.imageUrl !== "" ? (
-        <img
-          className="rounded-lg"
-          src={post.imageUrl}
-          onError={(e) => (e.target.style.display = "none")}
-        />
-      ) : (
-        ""
-      )}
-      <div className="text-text dark:text-darkText">{post.content}</div>
-      <div className="flex justify-between">
-        <div className="flex justify-between gap-2">
-          <div className="flex items-center justify-between gap-1 text-gray-500">
-            <FontAwesomeIcon icon={faThumbsUp} />
-            <p>{post.like}</p>
-          </div>
-          <div className="flex items-center justify-between gap-1 text-gray-500">
-            <FontAwesomeIcon icon={faThumbsDown} />
-            <p>{post.dislike}</p>
-          </div>
-          <div className="flex items-center justify-between gap-1 text-gray-500">
-            <FontAwesomeIcon icon={faMessage} />
-            <p>FIX</p>
-          </div>
-        </div>
-        <div className="flex gap-2 text-gray-500">
-          <p>{date.toLocaleDateString("en-US")}</p>
-          {/* TODO: need a backend endpoint to fetch username from id */}
-          <p>{/* {post.fkeyUuidUser} */}FIX</p>
-        </div>
-      </div>
-    </>
-  );
-
-  return (
-    <>
-      {isLink ? (
-        <Link
-          href={"/post/" + post.pkeyUuidPost}
-          className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
-        >
-          {postBody}
-        </Link>
-      ) : (
-        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground">
-          {postBody}
-        </div>
-      )}
-    </>
-  );
-};
-
-export const Category = ({ category, activeCategory, setActiveCategory }) => {
-  const isActive = activeCategory === category.id;
-
-  return (
-    <button
-      type="button"
-      className={
-        "flex items-center rounded-lg border-2 border-solid p-2 text-center transition-all" +
-        " " +
-        // TODO: may break on dark mode
-        (isActive
-          ? "border-foreground bg-accentRed text-white dark:border-darkForeground"
-          : "border-accentRed bg-foreground text-text dark:bg-darkForeground dark:text-darkText")
-      }
-      onClick={() => setActiveCategory(category.id)}
-    >
-      {category.name}
-    </button>
-  );
-};
+import Post from "@/components/utils/Post";
+import Category from "@/components/utils/Category";
+import PostLoader from "@/components/skeletons/PostLoader";
 
 const PostContainer = () => {
   const categories = [
@@ -108,33 +21,44 @@ const PostContainer = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState({ number: 1, nextPage: false });
+
+  const loadPosts = async () => {
+    const url =
+      process.env.NEXT_PUBLIC_BACKEND_URL +
+      "/posts" +
+      (activeCategory === "home"
+        ? "?"
+        : "/category?category=" + activeCategory + "&") +
+      "pageNumber=" +
+      page.number +
+      "&" +
+      "pageSize=10";
+
+    await fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        // TODO: deconstruct posts properly
+        console.log(data);
+
+        setPage({
+          number: data.pageNumber,
+          nextPage: data.nextPage === null ? false : true,
+        });
+        // FIXME: reset on category change
+        setPosts([...posts, ...data.data["$values"]]);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+        setError(new Error("Sunucu ile bağlantı kuramadık."));
+      });
+  };
 
   // on mount
   useEffect(() => {
-    const getPosts = async () => {
-      const url =
-        process.env.NEXT_PUBLIC_BACKEND_URL +
-        "/posts" +
-        (activeCategory === "home"
-          ? "?"
-          : "/category?category=" + activeCategory + "&") +
-        "pageSize=20";
-
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          // TODO: deconstruct posts properly
-          setPosts(data.data["$values"]);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-          setError(new Error("Sunucu ile bağlantı kuramadık."));
-        });
-    };
-
-    getPosts();
-  }, [activeCategory]);
+    loadPosts();
+  }, [activeCategory, page.number]);
 
   if (isLoading) return <PostContainerSkeleton />;
   if (error) return <ErrorPage message={error.message} />;
@@ -162,6 +86,15 @@ const PostContainer = () => {
         {posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}
+        <PostLoader
+          page={page}
+          incrementPage={() =>
+            setPage((previousPage) => ({
+              ...previousPage,
+              number: previousPage.number + 1,
+            }))
+          }
+        />
       </div>
     </div>
   );

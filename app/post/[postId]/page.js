@@ -1,5 +1,5 @@
 // TODO: create a post page component
-import { Post } from "@/components/PostContainer";
+import Post from "@/components/utils/Post";
 import ErrorCodePage from "@/components/utils/ErrorCodePage";
 
 const Page = ({ params }) => {

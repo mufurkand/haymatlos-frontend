@@ -3,7 +3,7 @@
 import Input from "@/components/utils/Input";
 import TextArea from "@/components/utils/TextArea";
 import { useState } from "react";
-import { Category } from "@/components/PostContainer";
+import Category from "@/components/utils/Category";
 import { useUserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import { validateImageUrl } from "@/utils/validation";

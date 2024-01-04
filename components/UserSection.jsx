@@ -70,7 +70,7 @@ const UserSection = () => {
         </div>
       </button>
       {toggleDropdown && (
-        <div className="absolute left-0 top-9 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2">
+        <div className="absolute left-0 top-9 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2 text-center">
           {user === null ? (
             <>
               <Link
