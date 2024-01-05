@@ -5,10 +5,12 @@ const TextArea = ({
   name,
   error = false,
   message = "Bu gizli bir hata mesajıdır. LOLOLOLOL.",
+  defaultValue = "",
 }) => {
   return (
     <div>
       <textarea
+        defaultValue={defaultValue}
         placeholder={placeholder}
         className="h-36 w-full resize-none rounded-md bg-foreground p-2 text-text focus:outline-none focus:ring-2 focus:ring-accentRed dark:bg-darkForeground dark:text-darkText"
         name={name}

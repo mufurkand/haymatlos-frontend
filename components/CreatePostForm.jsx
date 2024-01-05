@@ -1,7 +1,7 @@
 "use client";
 
 import Input from "@/components/utils/Input";
-import TextArea from "@/components/utils/TextArea";
+import TextArea from "@/components/utils/TextAreaInput";
 import { useState } from "react";
 import Category from "@/components/utils/Category";
 import { useUserContext } from "@/contexts/UserContext";
@@ -52,8 +52,6 @@ const CreatePostForm = () => {
 
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL + "/posts?userId=" + user.uuid;
-
-    console.log(url);
 
     await fetch(url, {
       method: "POST",
