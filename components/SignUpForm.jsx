@@ -108,7 +108,7 @@ const SignUpForm = () => {
           </button>
         </div>
         <div className="flex justify-center">
-          <Button content="Kaydol" isSubmitButton={true} />
+          <Button isSubmitButton={true}>Kaydol</Button>
         </div>
       </form>
     </div>

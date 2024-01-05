@@ -14,7 +14,7 @@ const Post = ({ post }) => {
       href={"/post/" + post.pkeyUuidPost}
       className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground"
     >
-      <div className="flex justify-between text-2xl text-black dark:text-white">
+      <div className="flex justify-between text-xl text-black dark:text-white">
         {post.title}
       </div>
       {post.imageUrl !== "" ? (

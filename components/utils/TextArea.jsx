@@ -10,7 +10,7 @@ const TextArea = ({
     <div>
       <textarea
         placeholder={placeholder}
-        className="h-56 w-full rounded-md bg-foreground p-2 focus:outline-none focus:ring-2 focus:ring-accentRed dark:bg-darkForeground"
+        className="h-36 w-full resize-none rounded-md bg-foreground p-2 text-text focus:outline-none focus:ring-2 focus:ring-accentRed dark:bg-darkForeground dark:text-darkText"
         name={name}
       ></textarea>
       <p

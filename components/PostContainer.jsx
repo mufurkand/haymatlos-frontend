@@ -17,21 +17,23 @@ const PostContainer = () => {
     { name: "Siyaset", id: "politics" },
   ];
 
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
-  const [posts, setPosts] = useState([]);
+  const [postData, setPostData] = useState({
+    posts: [],
+    activeCategory: categories[0].id,
+    page: { number: 1, nextPage: false },
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState({ number: 1, nextPage: false });
 
   const loadPosts = async () => {
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL +
       "/posts" +
-      (activeCategory === "home"
+      (postData.activeCategory === "home"
         ? "?"
-        : "/category?category=" + activeCategory + "&") +
+        : "/category?category=" + postData.activeCategory + "&") +
       "pageNumber=" +
-      page.number +
+      postData.page.number +
       "&" +
       "pageSize=10";
 
@@ -41,24 +43,28 @@ const PostContainer = () => {
         // TODO: deconstruct posts properly
         console.log(data);
 
-        setPage({
-          number: data.pageNumber,
-          nextPage: data.nextPage === null ? false : true,
+        setPostData({
+          ...postData,
+          page: {
+            number: data.pageNumber,
+            nextPage: data.nextPage === null ? false : true,
+          },
+          posts: [...postData.posts, ...data.data["$values"]],
         });
-        // FIXME: reset on category change
-        setPosts([...posts, ...data.data["$values"]]);
         setIsLoading(false);
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false);
+        console.log(error);
         setError(new Error("Sunucu ile bağlantı kuramadık."));
       });
   };
 
   // on mount
   useEffect(() => {
+    console.log("USEEFFECT TRIGGERED");
     loadPosts();
-  }, [activeCategory, page.number]);
+  }, [postData.activeCategory, postData.page.number]);
 
   if (isLoading) return <PostContainerSkeleton />;
   if (error) return <ErrorPage message={error.message} />;
@@ -76,23 +82,29 @@ const PostContainer = () => {
           <Category
             key={category.id}
             category={category}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
+            activeCategory={postData.activeCategory}
+            setActiveCategory={(category) =>
+              setPostData({
+                posts: [],
+                activeCategory: category,
+                page: { number: 1, nextPage: false },
+              })
+            }
           />
         ))}
       </div>
       {/* Posts */}
       <div className="flex w-full flex-col gap-5 overflow-auto bg-background dark:bg-darkBackground">
-        {posts.map((post) => (
+        {postData.posts.map((post) => (
           <Post key={post.pkeyUuidPost} post={post} />
         ))}
         <PostLoader
-          page={page}
+          page={postData.page}
           incrementPage={() =>
-            setPage((previousPage) => ({
-              ...previousPage,
-              number: previousPage.number + 1,
-            }))
+            setPostData({
+              ...postData,
+              page: { ...postData.page, number: postData.page.number + 1 },
+            })
           }
         />
       </div>

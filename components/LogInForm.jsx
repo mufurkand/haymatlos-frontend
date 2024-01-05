@@ -107,7 +107,7 @@ const LogInForm = () => {
           </button>
         </div>
         <div className="flex justify-center">
-          <Button content="Giriş Yap" isSubmitButton={true} />
+          <Button isSubmitButton={true}>Giriş Yap</Button>
         </div>
       </form>
     </div>

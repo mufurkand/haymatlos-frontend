@@ -1,11 +1,14 @@
-const Button = ({ content, isSubmitButton, onClick }) => {
+const Button = ({ children, isSubmitButton, onClick, className = "" }) => {
   return (
     <button
-      className="rounded-md bg-foreground p-2 transition-all hover:bg-accentRed hover:text-white dark:bg-darkForeground"
+      className={
+        "rounded-md bg-foreground p-2 text-text transition-all hover:bg-accentRed hover:text-white dark:bg-darkForeground dark:text-darkText" +
+        (className === "" ? "" : " " + className)
+      }
       type={isSubmitButton ? "submit" : "button"}
       onClick={onClick}
     >
-      {content}
+      {children}
     </button>
   );
 };

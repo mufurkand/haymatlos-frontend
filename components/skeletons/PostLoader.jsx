@@ -23,7 +23,7 @@ const Post = ({ page, incrementPage }) => {
     return () => {
       observer.disconnect();
     };
-  }, []);
+  }, [page.nextPage]);
 
   if (page.nextPage === false)
     return (

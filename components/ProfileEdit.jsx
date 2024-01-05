@@ -87,9 +87,9 @@ const ProfileEdit = () => {
         />
 
         <div className="flex justify-center gap-5">
-          <Button content="Güncelle" isSubmitButton={true} />
+          <Button isSubmitButton={true}>Güncelle</Button>
           {/* TODO: lacks an onClick */}
-          <Button content="Vazgeç" isSubmitButton={false} />
+          <Button isSubmitButton={false}>Vazgeç</Button>
         </div>
       </form>
     </div>
