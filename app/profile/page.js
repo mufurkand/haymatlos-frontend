@@ -1,9 +1,7 @@
+import Profile from "@/components/Profile";
+
 const Page = () => {
-  return (
-    <div className="text-center text-2xl font-extrabold text-accentRed">
-      page
-    </div>
-  );
+  return <Profile />;
 };
 
 export default Page;

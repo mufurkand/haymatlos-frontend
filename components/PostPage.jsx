@@ -13,8 +13,8 @@ import ErrorPage from "@/components/utils/ErrorPage";
 import { useUserContext } from "@/contexts/UserContext";
 import Input from "@/components/utils/Input";
 import Category from "@/components/utils/Category";
-import { useRouter } from "next/navigation";
 import { Post as PostSkeleton } from "@/components/skeletons/PostContainerSkeleton";
+import Comment from "@/components/utils/Comment";
 
 const PostPage = ({ postId }) => {
   const categories = [
@@ -26,6 +26,7 @@ const PostPage = ({ postId }) => {
 
   const [activeCategory, setActiveCategory] = useState(categories[0].id);
   const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isInEditMode, setIsInEditMode] = useState(false);
@@ -52,8 +53,23 @@ const PostPage = ({ postId }) => {
       });
   };
 
+  const loadComments = async () => {
+    const url =
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/comments?postId=" + postId;
+
+    await fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data["$values"]);
+      })
+      .catch(() => {
+        setError(new Error("Sunucu ile bağlantı kuramadık."));
+      });
+  };
+
   useEffect(() => {
     loadPost();
+    loadComments();
   }, []);
 
   const handleComment = async (event) => {
@@ -76,6 +92,10 @@ const PostPage = ({ postId }) => {
         },
       }),
     }).catch(() => setError(new Error("Sunucu ile bağlantı kuramadık.")));
+
+    // TODO: add the new comment without the fetch request. also add the username when the endpoint is available in normal comments endpoint
+    loadComments();
+    event.target.comment.value = "";
   };
 
   const handleEdit = async (event) => {
@@ -158,81 +178,90 @@ const PostPage = ({ postId }) => {
     );
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg bg-background p-5 dark:bg-darkBackground">
-      <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground">
-        <div className="flex justify-between text-xl text-black dark:text-white">
-          {post.title}
+    <div>
+      <div className="flex flex-col gap-5 bg-background py-5 dark:bg-darkBackground sm:p-5 md:rounded-lg">
+        <div className="flex w-full flex-none flex-col justify-between gap-5 rounded-md bg-foreground p-5 dark:bg-darkForeground">
+          <div className="flex justify-between text-xl text-black dark:text-white">
+            {post.title}
+          </div>
+          {post.imageUrl !== "" ? (
+            <img
+              className="rounded-lg"
+              src={post.imageUrl}
+              onError={(e) => (e.target.style.display = "none")}
+            />
+          ) : (
+            ""
+          )}
+          <div className="text-text dark:text-darkText">{post.content}</div>
+          <div className="flex justify-between text-gray-500">
+            <p>
+              {"Oran: " +
+                (post.dislike === 0
+                  ? "-"
+                  : (post.like / (post.dislike + post.like)) * 100 + "%")}
+            </p>
+            <a
+              className={
+                "underline" +
+                (user === null
+                  ? " invisible"
+                  : post.fkeyUuidUser === user.uuid
+                    ? ""
+                    : " invisible")
+              }
+              href="#"
+              onClick={() => setIsInEditMode(true)}
+            >
+              Düzenle
+            </a>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex justify-between gap-2">
+              <div className="flex items-center justify-between gap-1 text-gray-500">
+                <FontAwesomeIcon icon={faThumbsUp} />
+                <p>{post.like}</p>
+              </div>
+              <div className="flex items-center justify-between gap-1 text-gray-500">
+                <FontAwesomeIcon icon={faThumbsDown} />
+                <p>{post.dislike}</p>
+              </div>
+              <div className="flex items-center justify-between gap-1 text-gray-500">
+                <FontAwesomeIcon icon={faMessage} />
+                <p>FIX</p>
+              </div>
+            </div>
+            <div className="flex gap-2 text-gray-500">
+              <p>{post.date ? post.date.toLocaleDateString("tr-TR") : ""}</p>
+              {/* TODO: need a backend endpoint to fetch username from id */}
+              <p>{/* {post.fkeyUuidUser} */}FIX</p>
+            </div>
+          </div>
         </div>
-        {post.imageUrl !== "" ? (
-          <img
-            className="rounded-lg"
-            src={post.imageUrl}
-            onError={(e) => (e.target.style.display = "none")}
-          />
-        ) : (
-          ""
-        )}
-        <div className="text-text dark:text-darkText">{post.content}</div>
-        <div className="flex justify-between text-gray-500">
-          <p>
-            {"Oran: " +
-              (post.dislike === 0
-                ? "-"
-                : (post.like / (post.dislike + post.like)) * 100 + "%")}
+        {user === null ? (
+          <p className="ml-5 text-text dark:text-darkText sm:ml-0">
+            Yorum yapmak için giriş yapın.
           </p>
-          <a
-            className={
-              "underline" +
-              (user === null
-                ? " invisible"
-                : post.fkeyUuidUser === user.uuid
-                  ? ""
-                  : " invisible")
-            }
-            href="#"
-            onClick={() => setIsInEditMode(true)}
-          >
-            Düzenle
-          </a>
-        </div>
-        <div className="flex justify-between">
-          <div className="flex justify-between gap-2">
-            <div className="flex items-center justify-between gap-1 text-gray-500">
-              <FontAwesomeIcon icon={faThumbsUp} />
-              <p>{post.like}</p>
-            </div>
-            <div className="flex items-center justify-between gap-1 text-gray-500">
-              <FontAwesomeIcon icon={faThumbsDown} />
-              <p>{post.dislike}</p>
-            </div>
-            <div className="flex items-center justify-between gap-1 text-gray-500">
-              <FontAwesomeIcon icon={faMessage} />
-              <p>FIX</p>
-            </div>
-          </div>
-          <div className="flex gap-2 text-gray-500">
-            <p>{post.date ? post.date.toLocaleDateString("tr-TR") : ""}</p>
-            {/* TODO: need a backend endpoint to fetch username from id */}
-            <p>{/* {post.fkeyUuidUser} */}FIX</p>
-          </div>
-        </div>
+        ) : (
+          <form onSubmit={handleComment} className="flex flex-col">
+            <label className="mb-2 text-text dark:text-darkText">
+              Yorumlar
+            </label>
+            <TextArea
+              placeholder="Yorumunuzu buraya yazın."
+              name="comment"
+            ></TextArea>
+            <Button isSubmitButton={true} className="self-end">
+              Yorum Yap
+            </Button>
+          </form>
+        )}
       </div>
-      {user === null ? (
-        <p className="text-text dark:text-darkText">
-          Yorum yapmak için giriş yapın.
-        </p>
-      ) : (
-        <form onSubmit={handleComment} className="flex flex-col">
-          <label className="mb-2 text-text dark:text-darkText">Yorumlar</label>
-          <TextArea
-            placeholder="Yorumunuzu buraya yazın."
-            name="comment"
-          ></TextArea>
-          <Button isSubmitButton={true} className="self-end">
-            Yorum Yap
-          </Button>
-        </form>
-      )}
+      <div>
+        {comments.map((comment) => (
+          <Comment key={comment.pkeyUuidComment} comment={comment} />
+        ))}
+      </div>
     </div>
   );
 };

@@ -69,6 +69,8 @@ const UserSection = () => {
           />
         </div>
       </button>
+      {/* TODO: add animation to dropdown. this will probably require the
+      dropdown to be always present, just not visible. */}
       {toggleDropdown && (
         <div className="absolute left-0 top-9 flex w-full flex-col items-center gap-3 rounded-b-md bg-accentRed p-2 text-center">
           {user === null ? (
@@ -85,20 +87,20 @@ const UserSection = () => {
               >
                 Giriş Yap
               </Link>
-              <hr className="h-px w-full border-white" />
             </>
           ) : (
             <>
               {/* TODO: placeholder, will move this functionality to profile page soon. */}
               <Link
-                href="/profile/edit"
+                href="/profile"
                 onClick={() => setToggleDropdown((td) => !td)}
               >
-                Profili Düzenle
+                Profil
               </Link>
               <button onClick={() => logOut()}>Çıkış Yap</button>
             </>
           )}
+          <hr className="h-px w-full border-white" />
           <Link href="/about" onClick={() => setToggleDropdown((td) => !td)}>
             S.S.S.
           </Link>

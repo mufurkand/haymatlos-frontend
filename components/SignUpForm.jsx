@@ -44,7 +44,9 @@ const SignUpForm = () => {
       process.env.NEXT_PUBLIC_BACKEND_URL +
       `/users?nickname=${username}&password=${password}`;
 
-    await fetch(url)
+    await fetch(url, {
+      method: "POST",
+    })
       .then((res) => res.json())
       .then((data) => {
         // auth failure
