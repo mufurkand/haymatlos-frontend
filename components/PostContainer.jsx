@@ -87,6 +87,7 @@ const PostContainer = () => {
               setPostData({
                 posts: [],
                 activeCategory: category,
+                // TODO: maybe set nextPage to true?
                 page: { number: 1, nextPage: false },
               })
             }

@@ -90,7 +90,7 @@ const Profile = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-5 rounded-lg bg-background p-5 dark:bg-darkBackground sm:flex-row">
+      <div className="flex flex-col gap-5 bg-background p-5 dark:bg-darkBackground sm:flex-row md:rounded-lg">
         <div className="flex">
           <div className="flex h-36 w-36 flex-col items-center justify-center rounded-full bg-accentRed p-10 text-white">
             <FontAwesomeIcon className="flex-1" icon={faUser} />

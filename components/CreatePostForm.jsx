@@ -77,7 +77,7 @@ const CreatePostForm = () => {
   if (error !== null) return <ErrorPage message={error.message} />;
 
   return (
-    <div className="flex w-full justify-center bg-background dark:bg-darkBackground">
+    <div className="flex w-full justify-center bg-background dark:bg-darkBackground md:rounded-lg">
       <form
         onSubmit={handleSubmit}
         className="flex w-full max-w-2xl flex-col gap-5 p-5 text-text dark:text-darkText sm:w-1/2"

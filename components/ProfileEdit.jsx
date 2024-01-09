@@ -2,33 +2,44 @@
 
 import Input from "@/components/utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCamera,
+  faUser,
+  faUserGraduate,
+} from "@fortawesome/free-solid-svg-icons";
 import Button from "@/components/utils/Button";
 import { useUserContext } from "@/contexts/UserContext";
 import ErrorCodePage from "@/components/utils/ErrorCodePage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import ErrorPage from "@/components/utils/ErrorPage";
+import { useRouter } from "next/navigation";
 
 const ProfileEdit = () => {
   const { user } = useUserContext();
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const router = useRouter();
+
+  const loadUserData = async () => {
     if (user === null) return;
 
     const url =
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/users?userId=" + user.uuid;
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/users/id?userId=" + user.uuid;
 
-    const getUserInfo = async () => {
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) =>
-          setError(new Error("Sunucu ile bağlantı kuramadık.")),
-        );
-    };
+    await fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        const { nickname } = data.data;
+        setUserData({ nickname });
+      })
+      .catch(() => {
+        setError(new Error("Sunucu ile bağlantı kurulamadı."));
+      });
+  };
 
-    getUserInfo();
+  useEffect(() => {
+    loadUserData();
   }, []);
 
   const handleSubmit = async (event) => {
@@ -36,8 +47,14 @@ const ProfileEdit = () => {
     console.log("form submitted");
   };
 
+  const handleCancel = () => {
+    router.back();
+  };
+
   if (user === null)
     return <ErrorCodePage code={401} message="Lütfen giriş yapın." />;
+
+  if (error !== null) return <ErrorPage error={error} />;
 
   return (
     <div className="flex w-full justify-center bg-background dark:bg-darkBackground md:rounded-lg">
@@ -63,7 +80,12 @@ const ProfileEdit = () => {
         </div>
 
         <label>Kullanıcı Adı</label>
-        <Input placeholder="" type="text" name="nickname" />
+        <Input
+          placeholder="Kullanıcı Adı"
+          type="text"
+          name="nickname"
+          defaultValue={userData === null ? "" : userData.nickname}
+        />
         <label>Ad Soyad</label>
         <Input placeholder="" type="text" name="namesurname" />
         {/* placeholder yerine şu anki veri */}
@@ -89,7 +111,9 @@ const ProfileEdit = () => {
         <div className="flex justify-center gap-5">
           <Button isSubmitButton={true}>Güncelle</Button>
           {/* TODO: lacks an onClick */}
-          <Button isSubmitButton={false}>Vazgeç</Button>
+          <Button isSubmitButton={false} onClick={handleCancel}>
+            Vazgeç
+          </Button>
         </div>
       </form>
     </div>
