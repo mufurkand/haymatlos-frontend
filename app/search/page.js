@@ -1,5 +1,7 @@
+import Search from "@/components/Search";
+
 const Page = () => {
-  return <div>Page</div>;
+  return <Search />;
 };
 
 export default Page;
