@@ -39,13 +39,12 @@ const Post = ({ post }) => {
           </div>
           <div className="flex items-center justify-between gap-1 text-gray-500">
             <FontAwesomeIcon icon={faMessage} />
-            <p>FIX</p>
+            <p>{post.commentCount}</p>
           </div>
         </div>
         <div className="flex gap-2 text-gray-500">
           <p>{date.toLocaleDateString("tr-TR")}</p>
-          {/* TODO: need a backend endpoint to fetch username from id */}
-          <p>{/* {post.fkeyUuidUser} */}FIX</p>
+          <p>{post.posterUsername}</p>
         </div>
       </div>
     </Link>

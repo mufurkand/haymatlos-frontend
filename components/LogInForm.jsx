@@ -46,6 +46,7 @@ const LogInForm = () => {
     await fetch(url)
       .then((res) => res.json())
       .then((data) => {
+        // TODO: backend lacks functionality
         // auth failure
         // if (data.status !== 200) {
         //   // TODO: handle auth failure

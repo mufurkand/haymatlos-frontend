@@ -15,6 +15,8 @@ import Input from "@/components/utils/Input";
 import Category from "@/components/utils/Category";
 import { Post as PostSkeleton } from "@/components/skeletons/PostContainerSkeleton";
 import Comment from "@/components/utils/Comment";
+import { validateImageUrl } from "@/utils/validation";
+import { useRouter } from "next/navigation";
 
 const PostPage = ({ postId }) => {
   const categories = [
@@ -30,8 +32,10 @@ const PostPage = ({ postId }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isInEditMode, setIsInEditMode] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({});
 
   const { user } = useUserContext();
+  const router = useRouter();
 
   const loadPost = async () => {
     const url =
@@ -72,6 +76,22 @@ const PostPage = ({ postId }) => {
     loadComments();
   }, []);
 
+  const validateForm = (title, content, imageUrl) => {
+    let tempErrors = {};
+
+    if (title.length > 100)
+      tempErrors.title = "Başlık 100 karakterden fazla olamaz.";
+    if (content.length > 2000)
+      tempErrors.content = "İçerik 2000 karakterden fazla olamaz.";
+    if (imageUrl === "" ? false : !validateImageUrl(imageUrl))
+      tempErrors.imageUrl = "Lütfen geçerli bir link giriniz.";
+    if (title.length === 0) tempErrors.title = "Başlık boş olamaz.";
+    if (content.length === 0) tempErrors.content = "İçerik boş olamaz.";
+
+    setValidationErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
+
   const handleComment = async (event) => {
     event.preventDefault();
 
@@ -100,12 +120,13 @@ const PostPage = ({ postId }) => {
 
   const handleEdit = async (event) => {
     event.preventDefault();
+
     const title = event.target.title.value;
     const content = event.target.content.value;
     const imageUrl = event.target.imageUrl.value;
     const category = activeCategory;
 
-    // if (!validateForm(title, content, imageUrl)) return;
+    if (!validateForm(title, content, imageUrl)) return;
 
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL +
@@ -135,6 +156,19 @@ const PostPage = ({ postId }) => {
     setIsInEditMode(false);
   };
 
+  const handleDelete = async () => {
+    const url =
+      process.env.NEXT_PUBLIC_BACKEND_URL +
+      "/posts?postId=" +
+      post.pkeyUuidPost;
+
+    await fetch(url, {
+      method: "DELETE",
+    }).catch(() => setError(new Error("Sunucu ile bağlantı kuramadık.")));
+
+    router.push("/");
+  };
+
   if (isLoading) return <PostSkeleton />;
   if (error !== null) return <ErrorPage message={error.message} />;
   if (isInEditMode)
@@ -148,17 +182,23 @@ const PostPage = ({ postId }) => {
           defaultValue={post.title}
           type="text"
           name="title"
+          error={validationErrors.hasOwnProperty("title")}
+          message={validationErrors.title}
         />
         <Input
           placeholder="Paylaşmak istediğiniz resmin linki"
           defaultValue={post.imageUrl}
           type="text"
           name="imageUrl"
+          error={validationErrors.hasOwnProperty("imageUrl")}
+          message={validationErrors.imageUrl}
         />
         <TextArea
           placeholder="Gönderi içeriği"
           defaultValue={post.content}
           name="content"
+          error={validationErrors.hasOwnProperty("content")}
+          message={validationErrors.content}
         />
         <div className="flex h-14 w-full items-center gap-5 overflow-auto bg-background dark:bg-darkBackground">
           {categories.map((category) => (
@@ -201,20 +241,36 @@ const PostPage = ({ postId }) => {
                   ? "-"
                   : (post.like / (post.dislike + post.like)) * 100 + "%")}
             </p>
-            <a
-              className={
-                "underline" +
-                (user === null
-                  ? " invisible"
-                  : post.fkeyUuidUser === user.uuid
-                    ? ""
-                    : " invisible")
-              }
-              href="#"
-              onClick={() => setIsInEditMode(true)}
-            >
-              Düzenle
-            </a>
+            <div className="flex gap-2">
+              <a
+                className={
+                  "underline" +
+                  (user === null
+                    ? " invisible"
+                    : post.fkeyUuidUser === user.uuid
+                      ? ""
+                      : " invisible")
+                }
+                href="#"
+                onClick={() => setIsInEditMode(true)}
+              >
+                Düzenle
+              </a>
+              <a
+                className={
+                  "underline" +
+                  (user === null
+                    ? " invisible"
+                    : post.fkeyUuidUser === user.uuid
+                      ? ""
+                      : " invisible")
+                }
+                href="#"
+                onClick={handleDelete}
+              >
+                Sil
+              </a>
+            </div>
           </div>
           <div className="flex justify-between">
             <div className="flex justify-between gap-2">
@@ -228,13 +284,12 @@ const PostPage = ({ postId }) => {
               </div>
               <div className="flex items-center justify-between gap-1 text-gray-500">
                 <FontAwesomeIcon icon={faMessage} />
-                <p>FIX</p>
+                <p>{post.commentCount}</p>
               </div>
             </div>
             <div className="flex gap-2 text-gray-500">
               <p>{post.date ? post.date.toLocaleDateString("tr-TR") : ""}</p>
-              {/* TODO: need a backend endpoint to fetch username from id */}
-              <p>{/* {post.fkeyUuidUser} */}FIX</p>
+              <p>{post.posterUsername}</p>
             </div>
           </div>
         </div>

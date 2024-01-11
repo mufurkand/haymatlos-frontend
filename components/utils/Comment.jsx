@@ -10,7 +10,7 @@ const Comment = ({ comment }) => {
     <div className="flex w-full items-center justify-between gap-5 p-5 text-text dark:text-darkText">
       <div className="flex flex-col gap-3">
         <div className="flex gap-5 text-sm">
-          <p>Kullanıcı Adı</p>
+          <p>{comment.commenterUsername}</p>
           <p className="text-gray-500">{date.toLocaleDateString("tr-TR")}</p>
         </div>
         <p>{comment.description}</p>
