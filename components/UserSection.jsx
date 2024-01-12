@@ -41,6 +41,7 @@ const UserSection = () => {
   const logOut = () => {
     setUser(null);
     setToggleDropdown(false);
+    localStorage.removeItem("user");
     router.push("/");
     // TODO: handle localStorage
   };

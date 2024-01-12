@@ -63,9 +63,10 @@ const LogInForm = () => {
         };
 
         setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
         router.push("/");
       })
-      .catch((error) => setError(new Error("Sunucu ile bağlantı kuramadık.")));
+      .catch(() => setError(new Error("Sunucu ile bağlantı kuramadık.")));
   };
 
   if (error !== null) return <ErrorPage message={error.message} />;
