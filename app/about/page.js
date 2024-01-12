@@ -1,6 +1,6 @@
 const Page = () => {
   return (
-    <div className="flex h-[calc(100vh-3.5rem)] flex-col items-center justify-center gap-5">
+    <div className="flex h-[calc(100vh-3.5rem)] flex-col items-center justify-center gap-5 p-5">
       <h1 className="self-start bg-gradient-to-r from-accentRed to-amber-500 bg-clip-text text-2xl font-extrabold text-transparent">
         Haymatlos ne demek?
       </h1>

@@ -157,6 +157,7 @@ const PostPage = ({ postId }) => {
   };
 
   const handleDelete = async () => {
+    return;
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL +
       "/posts?postId=" +
@@ -298,7 +299,7 @@ const PostPage = ({ postId }) => {
             Yorum yapmak için giriş yapın.
           </p>
         ) : (
-          <form onSubmit={handleComment} className="flex flex-col">
+          <form onSubmit={handleComment} className="flex flex-col px-5 md:px-0">
             <label className="mb-2 text-text dark:text-darkText">
               Yorumlar
             </label>
