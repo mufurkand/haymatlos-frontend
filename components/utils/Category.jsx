@@ -1,5 +1,13 @@
-const Category = ({ category, activeCategory, setActiveCategory }) => {
+import { useRouter } from "next/navigation";
+
+const Category = ({ category, activeCategory, setActiveCategory = null }) => {
   const isActive = activeCategory === category.id;
+  const router = useRouter();
+
+  const redirect = (id) => {
+    if (id === "home") router.push("/");
+    else router.push("/" + id);
+  };
 
   return (
     <button
@@ -12,7 +20,11 @@ const Category = ({ category, activeCategory, setActiveCategory }) => {
           ? "border-foreground bg-accentRed text-white dark:border-darkForeground"
           : "border-accentRed bg-foreground text-text dark:bg-darkForeground dark:text-darkText")
       }
-      onClick={() => setActiveCategory(category.id)}
+      onClick={() =>
+        setActiveCategory === null
+          ? redirect(category.id)
+          : setActiveCategory(category.id)
+      }
     >
       {category.name}
     </button>

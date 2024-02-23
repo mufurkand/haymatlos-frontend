@@ -8,7 +8,10 @@ import Post from "@/components/utils/Post";
 import Category from "@/components/utils/Category";
 import PostLoader from "@/components/skeletons/PostLoader";
 
-const PostContainer = () => {
+// TODO: rename this component to Home and extract tbe post logic to a new
+// component named PostContainer
+
+const PostContainer = ({ activeCategory }) => {
   const categories = [
     { name: "Anasayfa", id: "home" },
     { name: "Kültür/Sanat", id: "culture" },
@@ -19,7 +22,6 @@ const PostContainer = () => {
 
   const [postData, setPostData] = useState({
     posts: [],
-    activeCategory: categories[0].id,
     page: { number: 1, nextPage: false },
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -29,9 +31,9 @@ const PostContainer = () => {
     const url =
       process.env.NEXT_PUBLIC_BACKEND_URL +
       "/posts" +
-      (postData.activeCategory === "home"
+      (activeCategory === "home"
         ? "?"
-        : "/category?category=" + postData.activeCategory + "&") +
+        : "/category?category=" + activeCategory + "&") +
       "pageNumber=" +
       postData.page.number +
       "&" +
@@ -64,7 +66,7 @@ const PostContainer = () => {
   useEffect(() => {
     console.log("USEEFFECT TRIGGERED");
     loadPosts();
-  }, [postData.activeCategory, postData.page.number]);
+  }, [postData.page.number]);
 
   if (isLoading) return <PostContainerSkeleton />;
   if (error) return <ErrorPage message={error.message} />;
@@ -82,14 +84,7 @@ const PostContainer = () => {
           <Category
             key={category.id}
             category={category}
-            activeCategory={postData.activeCategory}
-            setActiveCategory={(category) =>
-              setPostData({
-                posts: [],
-                activeCategory: category,
-                page: { number: 1, nextPage: false },
-              })
-            }
+            activeCategory={activeCategory}
           />
         ))}
       </div>

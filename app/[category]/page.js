@@ -1,9 +1,9 @@
 import PostContainer from "@/components/PostContainer";
 
-const Home = () => {
+const Home = ({ params }) => {
   return (
     <div>
-      <PostContainer activeCategory="home" />
+      <PostContainer activeCategory={params.category} />
     </div>
   );
 };
