@@ -1,11 +1,11 @@
-import PostContainer from "@/components/PostContainer";
+import Home from "@/components/Home";
 
-const Home = () => {
+const Page = () => {
   return (
     <div>
-      <PostContainer activeCategory="home" />
+      <Home activeCategory="home" />
     </div>
   );
 };
 
-export default Home;
+export default Page;
