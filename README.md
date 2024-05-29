@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# haymatlos
+![haymatlos](https://github.com/mufurkand/haymatlos-frontend/assets/45736470/c7338e99-7e1a-47dc-b034-0f46ab2828a9)
 
 ## Getting Started
 
